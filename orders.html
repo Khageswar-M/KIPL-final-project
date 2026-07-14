@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Orders · NovaCart</title>
+<meta name="description" content="NovaCart — the next-generation ecommerce experience for gadgets, fashion and lifestyle.">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+<div id="nc-navbar"></div>
+
+<div class="container-nc nc-crumb"><a href="profile.html">Account</a><span class="sep">/</span>Orders</div>
+<section class="pb-5"><div class="container-nc">
+  <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+    <h2 class="mb-0">My Orders</h2>
+    <form class="nc-search" style="min-width:280px"><input placeholder="Search orders..."><button>Go</button></form>
+  </div>
+  <div class="nc-tabs mb-4">
+    <a class="active">All (12)</a><a>Pending (2)</a><a>Shipped (3)</a><a>Delivered (6)</a><a>Cancelled (1)</a>
+  </div>
+  <div class="nc-order">
+    <div class="head"><div><small class="text-muted-nc">Order #NVC-2025-83421 · Nov 12, 2025</small><h5 class="mt-1 mb-0">Aurora Wireless Headphones + 2 more</h5></div><span class="status">Delivered</span></div>
+    <div class="d-flex justify-content-between align-items-center mt-3 flex-wrap gap-2"><div class="text-muted-nc">Total: <b class="">$453.56</b></div><div class="d-flex gap-2"><a href="order-details.html" class="btn-nc-ghost">Details</a><a href="#" class="btn-nc-outline">Reorder</a></div></div>
+  </div>
+  <div class="nc-order">
+    <div class="head"><div><small class="text-muted-nc">Order #NVC-2025-83102 · Nov 8, 2025</small><h5 class="mt-1 mb-0">Nimbus Smart Watch Pro</h5></div><span class="status pending">Shipped</span></div>
+    <div class="d-flex justify-content-between align-items-center mt-3 flex-wrap gap-2"><div class="text-muted-nc">Total: <b class="">$249.00</b></div><div class="d-flex gap-2"><a href="order-details.html" class="btn-nc-ghost">Track</a></div></div>
+  </div>
+  <div class="nc-order">
+    <div class="head"><div><small class="text-muted-nc">Order #NVC-2025-82011 · Oct 30, 2025</small><h5 class="mt-1 mb-0">Zenith Mechanical Keyboard</h5></div><span class="status cancel">Cancelled</span></div>
+    <div class="d-flex justify-content-between align-items-center mt-3 flex-wrap gap-2"><div class="text-muted-nc">Total: <b class="">$99.00</b></div><a href="order-details.html" class="btn-nc-ghost">Details</a></div>
+  </div>
+  <div class="nc-pag"><a>‹</a><a class="active">1</a><a>2</a><a>3</a><a>›</a></div>
+</div></section>
+
+<div id="nc-footer"></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

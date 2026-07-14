@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Notifications · NovaCart</title>
+<meta name="description" content="NovaCart — the next-generation ecommerce experience for gadgets, fashion and lifestyle.">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+<div id="nc-navbar"></div>
+
+<section class="py-5"><div class="container-nc"><div class="row g-4">
+  <div class="col-lg-3"><div class="nc-side-nav"><a href="profile.html" class=""><span>👤</span>Profile</a><a href="edit-profile.html" class=""><span>✏️</span>Edit Profile</a><a href="orders.html" class=""><span>📦</span>My Orders</a><a href="wishlist.html" class=""><span>♡</span>Wishlist</a><a href="address.html" class=""><span>📍</span>Addresses</a><a href="notifications.html" class="active"><span>🔔</span>Notifications</a><a href="support.html" class=""><span>💬</span>Support</a><a href="login.html" class=""><span>↩</span>Logout</a></div></div>
+  <div class="col-lg-9">
+    <div class="d-flex justify-content-between align-items-center mb-3"><h4 class="mb-0">Notifications</h4><button class="btn-nc-ghost" onclick="document.querySelectorAll('.nc-notif').forEach(n=>n.classList.remove('unread'));ncToast('All marked read')">Mark all as read</button></div>
+    <div class="nc-tabs mb-3"><a class="active">All</a><a>Orders</a><a>Promotions</a><a>Account</a></div>
+    <div class="nc-notif unread"><div class="ic">📦</div><div class="flex-grow-1"><div class="fw-semibold ">Your order has been delivered</div><div class="text-muted-nc" style="font-size:13px">Order #NVC-2025-83421 was delivered today at 2:14 PM.</div><small class="text-muted-nc">2 hours ago</small></div><button class="btn-nc-ghost" onclick="this.closest('.nc-notif').remove()">✕</button></div>
+    <div class="nc-notif unread"><div class="ic">🎁</div><div class="flex-grow-1"><div class="fw-semibold ">Weekend Flash Sale — Up to 60% off</div><div class="text-muted-nc" style="font-size:13px">Limited-time deals across audio & wearables.</div><small class="text-muted-nc">5 hours ago</small></div><button class="btn-nc-ghost" onclick="this.closest('.nc-notif').remove()">✕</button></div>
+    <div class="nc-notif"><div class="ic">💬</div><div class="flex-grow-1"><div class="fw-semibold ">Reply from Support</div><div class="text-muted-nc" style="font-size:13px">"Your refund has been processed successfully."</div><small class="text-muted-nc">Yesterday</small></div><button class="btn-nc-ghost" onclick="this.closest('.nc-notif').remove()">✕</button></div>
+    <div class="nc-notif"><div class="ic">⭐</div><div class="flex-grow-1"><div class="fw-semibold ">You earned 200 reward points</div><div class="text-muted-nc" style="font-size:13px">Keep shopping to reach Platinum tier.</div><small class="text-muted-nc">3 days ago</small></div><button class="btn-nc-ghost" onclick="this.closest('.nc-notif').remove()">✕</button></div>
+  </div>
+</div></div></section>
+
+<div id="nc-footer"></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

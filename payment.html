@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Payment · NovaCart</title>
+<meta name="description" content="NovaCart — the next-generation ecommerce experience for gadgets, fashion and lifestyle.">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+<div id="nc-navbar"></div>
+
+<div class="container-nc pt-4"><div class="nc-steps"><div class="st active"><div class="n">1</div>Cart</div><div class="line"></div><div class="st active"><div class="n">2</div>Address</div><div class="line"></div><div class="st active"><div class="n">3</div>Payment</div><div class="line"></div><div class="st "><div class="n">4</div>Done</div></div></div>
+<section class="pb-5"><div class="container-nc"><div class="row g-4">
+  <div class="col-lg-8">
+    <div class="p-4 bg-surface rounded-nc border-nc">
+      <h5>Payment Method</h5>
+      <div class="nc-tabs mt-3" role="tablist">
+        <a class="active" data-tab="card">💳 Card</a>
+        <a data-tab="upi">🪙 UPI</a>
+        <a data-tab="wallet">👝 Wallet</a>
+        <a data-tab="net">🏦 Net Banking</a>
+        <a data-tab="cod">📦 Cash on Delivery</a>
+      </div>
+      <div id="pane-card" class="pane mt-4">
+        <div class="row g-3">
+          <div class="col-12"><label class="nc-label">Card Number</label><input class="nc-input" placeholder="1234 5678 9012 3456"></div>
+          <div class="col-md-6"><label class="nc-label">Cardholder</label><input class="nc-input" placeholder="Jane Doe"></div>
+          <div class="col-md-3"><label class="nc-label">Expiry</label><input class="nc-input" placeholder="MM/YY"></div>
+          <div class="col-md-3"><label class="nc-label">CVV</label><input class="nc-input" placeholder="•••"></div>
+        </div>
+      </div>
+      <div id="pane-upi" class="pane mt-4 d-none"><label class="nc-label">UPI ID</label><input class="nc-input" placeholder="you@bank"></div>
+      <div id="pane-wallet" class="pane mt-4 d-none"><div class="row g-2"><div class="col-4"><div class="nc-brand">Paytm</div></div><div class="col-4"><div class="nc-brand">GPay</div></div><div class="col-4"><div class="nc-brand">Apple Pay</div></div></div></div>
+      <div id="pane-net" class="pane mt-4 d-none"><select class="nc-input"><option>Select Bank</option><option>Chase</option><option>HDFC</option><option>SBI</option></select></div>
+      <div id="pane-cod" class="pane mt-4 d-none"><p class="text-muted-nc">Pay when your order arrives at your doorstep.</p></div>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <div class="nc-summary">
+      <h5>Order Summary</h5>
+      <div class="row"><span>Items (3)</span><span class=" ms-auto">$457.00</span></div>
+      <div class="row"><span>Tax</span><span class=" ms-auto">$36.56</span></div>
+      <div class="row"><span>Discount</span><span style="color:var(--nc-accent)" class="ms-auto">−$40.00</span></div>
+      <div class="row total"><span>Total</span><span class="ms-auto">$453.56</span></div>
+      <a href="payment-success.html" class="btn-nc w-100 justify-content-center mt-3">Pay $453.56</a>
+      <div class="text-center text-muted-nc mt-2" style="font-size:12px">🔒 Secure 256-bit SSL encryption</div>
+    </div>
+  </div>
+</div></div></section>
+<script>
+document.querySelectorAll('.nc-tabs a').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();document.querySelectorAll('.nc-tabs a').forEach(x=>x.classList.remove('active'));a.classList.add('active');document.querySelectorAll('.pane').forEach(p=>p.classList.add('d-none'));document.getElementById('pane-'+a.dataset.tab).classList.remove('d-none')}));
+</script>
+
+<div id="nc-footer"></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

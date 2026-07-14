@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Edit profile · NovaCart</title>
+<meta name="description" content="NovaCart — the next-generation ecommerce experience for gadgets, fashion and lifestyle.">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+<div id="nc-navbar"></div>
+
+<section class="py-5"><div class="container-nc"><div class="row g-4">
+  <div class="col-lg-3"><div class="nc-side-nav"><a href="profile.html" class=""><span>👤</span>Profile</a><a href="edit-profile.html" class="active"><span>✏️</span>Edit Profile</a><a href="orders.html" class=""><span>📦</span>My Orders</a><a href="wishlist.html" class=""><span>♡</span>Wishlist</a><a href="address.html" class=""><span>📍</span>Addresses</a><a href="notifications.html" class=""><span>🔔</span>Notifications</a><a href="support.html" class=""><span>💬</span>Support</a><a href="login.html" class=""><span>↩</span>Logout</a></div></div>
+  <div class="col-lg-9">
+    <div class="p-4 bg-surface rounded-nc border-nc">
+      <h4>Edit Profile</h4>
+      <div class="d-flex align-items-center gap-3 my-4">
+        <div style="width:80px;height:80px;background:var(--nc-gradient);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:700;color:#fff">JD</div>
+        <div><input type="file" class="nc-input" accept="image/*"><small class="text-muted-nc">JPG/PNG · Max 2MB</small></div>
+      </div>
+      <form onsubmit="event.preventDefault();ncToast('Profile updated')" class="row g-3">
+        <div class="col-md-6"><label class="nc-label">Full name</label><input class="nc-input" value="Jane Doe"></div>
+        <div class="col-md-6"><label class="nc-label">Email</label><input class="nc-input" value="jane.doe@email.com"></div>
+        <div class="col-md-6"><label class="nc-label">Phone</label><input class="nc-input" value="+1 555 123 4567"></div>
+        <div class="col-md-3"><label class="nc-label">Gender</label><select class="nc-input"><option>Female</option><option>Male</option><option>Other</option></select></div>
+        <div class="col-md-3"><label class="nc-label">DOB</label><input type="date" class="nc-input" value="1995-06-14"></div>
+        <div class="col-12 d-flex gap-2 mt-2"><button class="btn-nc">Save Changes</button><a href="profile.html" class="btn-nc-outline">Cancel</a></div>
+      </form>
+    </div>
+  </div>
+</div></div></section>
+
+<div id="nc-footer"></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
