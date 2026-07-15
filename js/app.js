@@ -1,7 +1,7 @@
 /* NovaCart - Shared JS */
 (function(){
   const NAV_LINKS = [
-    {href:"home.html",label:"Home"},
+    {href:"home.html",label:"Products"},
     {href:"products.html",label:"Shop"},
     {href:"categories.html",label:"Categories"},
     {href:"about.html",label:"About"},
@@ -40,27 +40,32 @@
     const p = location.pathname.split("/").pop() || "index.html";
     return p;
   }
-
+ 
   function renderNavbar(target){
     const active = currentPage();
     const links = NAV_LINKS.map(l=>`<li class="nav-item"><a class="nav-link ${active===l.href?'active':''}" href="${l.href}">${l.label}</a></li>`).join("");
     target.innerHTML = `
-      <div class="nc-announce">🚀 Free shipping on orders over $75 &nbsp;·&nbsp; Use code <b>NOVA20</b> for 20% off &nbsp;·&nbsp; <a href="products.html">Shop deals</a></div>
+      <div class="nc-announce">Free shipping on orders over $75 &nbsp;·&nbsp; Use code <b>NOVA20</b> for 20% off &nbsp;·&nbsp; <a href="products.html">Shop deals</a></div>
       <nav class="nc-nav navbar navbar-expand-lg">
-        <div class="container-nc w-100 d-flex align-items-center gap-3">
-          <a class="navbar-brand" href="home.html"><span class="brand-dot"></span>NovaCart</a>
-          <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#ncNav"><span class="navbar-toggler-icon" ></span></button>
-          <div class="collapse navbar-collapse" id="ncNav">
-            <ul class="navbar-nav me-auto">${links}</ul>
-            <form class="nc-search d-none d-lg-flex" action="search.html">
-              <input name="q" placeholder="Search products, brands, categories..." />
+        <div class="container-nc w-100 d-flex flex-column flex-lg-row justify-content-between align-items-center gap-3">
+          <div class="w-100 d-flex align-items-center justify-content-between">
+            <a class="navbar-brand" href="index.html"><span class="brand-dot"></span>NovaCart</a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#ncNav"><span class="navbar-toggler-icon" ></span></button>
+          </div>
+          <div class="collapse navbar-collapse w-100 gap-3" id="ncNav"> 
+            <ul class="navbar-nav me-auto gap-2">${links}</ul>
+            <form class="nc-search d-flex" action="search.html">
+              <input name="q form-control" placeholder="Search..." />
               <button type="submit">Search</button>
             </form>
             <div class="d-flex align-items-center gap-2 ms-lg-3 mt-3 mt-lg-0">
-              <a href="wishlist.html" class="nc-icon-btn" title="Wishlist">♡<span class="nc-badge">3</span></a>
-              <a href="compare.html" class="nc-icon-btn" title="Compare">⇌</a>
-              <a href="cart.html" class="nc-icon-btn" title="Cart">🛒<span class="nc-badge">2</span></a>
-              <a href="profile.html" class="nc-icon-btn" title="Account">👤</a>
+              <a href="wishlist.html" class="nc-icon-btn" title="Wishlist">
+                <i class="fa-regular fs-5 fa-heart"></i>
+                <span class="nc-badge">3</span>
+              </a>
+              <a href="compare.html" class="nc-icon-btn" title="Compare"><i class="fa-solid fa-code-compare"></i></a>
+              <a href="cart.html" class="nc-icon-btn" title="Cart"><i class="fa-solid fa-cart-shopping"></i><span class="nc-badge">2</span></a>
+              <a href="profile.html" class="nc-icon-btn" title="Account"><i class="fa-regular fa-user"></i></a>
               <a href="login.html" class="btn-nc d-none d-lg-inline-flex" style="padding:8px 18px;font-size:13px">Login</a>
             </div>
           </div>
