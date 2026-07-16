@@ -355,15 +355,16 @@ h6 {
 }
 
 .nc-hero-visual .price-tag {
-  position: absolute;
-  bottom: 20px;
-  left: 20px;
+  /* position: absolute; */
+  /* bottom: 20px;
+  left: 20px; */
   background: #fff;
-  padding: 14px 18px;
+  /* padding: 14px 18px; */
   border-radius: 14px;
   box-shadow: var(--nc-shadow-lg);
   color: var(--nc-text)
 }
+
 
 .nc-hero-stat {
   background: #fff;
