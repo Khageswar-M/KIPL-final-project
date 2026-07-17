@@ -25,7 +25,7 @@
     <div class="container-nc">
       <div class="row align-items-center g-5">
         <div class="col-lg-6">
-          <span class="nc-hero-eyebrow">✨ New Season Collection 2025</span>
+          <span class="nc-hero-eyebrow">New Season Collection 2025</span>
           <h1>Shop smarter with <span class="gradient-text">NovaCart</span> — the future of commerce.</h1>
           <p class="lead">Discover thousands of curated products from premium brands. Free shipping, buyer protection,
             and delivery in 2 days.</p>
@@ -55,9 +55,8 @@
           </div>
         </div>
         <div class="col-lg-6">
-          <div class="nc-hero-visual floating"
-            style="display:flex;align-items:center;justify-content:center;">
-            <div class="price-tag floating-delay">
+          <div class="nc-hero-visual " style="display:flex;align-items:center;justify-content:center;">
+            <div class="price-tag ">
               <small class="price-tag-trend">
                 <img src="https://i.pinimg.com/1200x/c2/ba/ac/c2baaca0e533b50d602336bf6698ded0.jpg" alt="Product"
                   class="w-100 h-100" style=" object-fit:cover; vertical-align:middle;">
@@ -94,6 +93,7 @@
           <a href="products.html" class="btn-nc">Shop the Sale →</a>
         </div>
       </div>
+
       <div class="row g-3" id="pgrid">
 
         <div class="col-6 col-md-4 col-lg-3">
@@ -151,28 +151,39 @@
       <div class="row g-3">
         <div class="col-md-3 col-6">
           <div class="nc-feature card-hover reveal">
-            <div class="ic">🚚</div>
+            <div class="ic">
+              <i class="fa-solid fa-truck-fast"></i>
+            </div>
             <h5>Free Shipping</h5>
             <p>Free delivery on orders over $75, everywhere.</p>
           </div>
         </div>
+
         <div class="col-md-3 col-6">
           <div class="nc-feature card-hover reveal">
-            <div class="ic">🛡️</div>
+            <div class="ic">
+              <i class="fa-solid fa-shield-halved"></i>
+            </div>
             <h5>Buyer Protection</h5>
             <p>100% money-back guarantee within 30 days.</p>
           </div>
         </div>
+
         <div class="col-md-3 col-6">
           <div class="nc-feature card-hover reveal">
-            <div class="ic">💬</div>
+            <div class="ic">
+              <i class="fa-solid fa-headset"></i>
+            </div>
             <h5>24/7 Support</h5>
             <p>Real humans available around the clock.</p>
           </div>
         </div>
+
         <div class="col-md-3 col-6">
           <div class="nc-feature card-hover reveal">
-            <div class="ic">🔒</div>
+            <div class="ic">
+              <i class="fa-solid fa-lock"></i>
+            </div>
             <h5>Secure Payments</h5>
             <p>Bank-grade encryption on all transactions.</p>
           </div>
@@ -196,9 +207,9 @@
             <p>"Genuinely the best shopping experience I've had online. Delivery was crazy fast and the packaging felt
               premium."</p>
             <div class="who">
-              <div class="av">A</div>
+              <div class="av">K</div>
               <div>
-                <h6>Amelia Chen</h6><small>Verified buyer</small>
+                <h6>Khageswar Maharana</h6><small>Verified buyer</small>
               </div>
             </div>
           </div>
@@ -209,9 +220,9 @@
             <p>"Prices are unbeatable and the app UI is chef's kiss. I've replaced Amazon with NovaCart for gadgets."
             </p>
             <div class="who">
-              <div class="av">M</div>
+              <div class="av">P</div>
               <div>
-                <h6>Marcus Vega</h6><small>Verified buyer</small>
+                <h6>Pravanjan Kar</h6><small>Verified buyer</small>
               </div>
             </div>
           </div>
@@ -221,9 +232,9 @@
             <div class="stars">★★★★★</div>
             <p>"Customer support answered in under a minute. Refunded a defective item next day. Very impressed."</p>
             <div class="who">
-              <div class="av">P</div>
+              <div class="av">S</div>
               <div>
-                <h6>Priya Nair</h6><small>Verified buyer</small>
+                <h6>Subhankar Jena</h6><small>Verified buyer</small>
               </div>
             </div>
           </div>
@@ -234,7 +245,7 @@
 
   <section class="nc-section reveal">
     <div class="container-nc">
-      <div class="nc-newsletter reveal">
+      <div class="nc-newsletter shadow">
         <h2>Join the NovaCart Insider</h2>
         <p>Get early access to drops, member-only deals, and 10% off your first order.</p>
         <form onsubmit="event.preventDefault();ncToast('Subscribed! 🎉')">
@@ -250,16 +261,21 @@
 
       document.getElementById("catGrid").innerHTML =
         NovaCart.categories.map(c => `
-        <div class="col-6 col-md-3 col-lg-3">
-            <a href="products.html">
-                <div class="nc-cat card-hover reveal">
-                    <div class="emoji">${c.emoji}</div>
-                    <h5>${c.name}</h5>
-                    <p>${c.count} products</p>
+    <div class="col-12 col-md-4 col-lg-3">
+        <a href="products.html" class="text-decoration-none text-dark">
+            <div class="nc-cat card-hover reveal pb-2">
+
+                <div
+                    class="nc-cat-img d-flex justify-content-center align-items-center"
+                    style="background-image: url('${c.img}'); background-size: cover; background-position: center center">
                 </div>
-            </a>
-        </div>
-    `).join("");
+
+                <h5 class="mt-3 mb-1">${c.name}</h5>
+                <p class="mb-0 text-muted">${c.count} Products</p>
+            </div>
+        </a>
+    </div>
+`).join("");
 
       document.getElementById("brandGrid").innerHTML =
         NovaCart.brands.map(b => `

@@ -558,13 +558,12 @@ h6 {
   background: #fff;
   border: 1px solid var(--nc-border);
   border-radius: 16px;
-  padding: 22px;
   text-align: center;
   transition: .25s;
   position: relative;
   overflow: hidden;
   height: 100%;
-  box-shadow: var(--nc-shadow)
+  box-shadow: var(--nc-shadow);
 }
 
 .nc-cat:hover {
@@ -576,6 +575,22 @@ h6 {
 .nc-cat .emoji {
   font-size: 44px;
   margin-bottom: 10px
+}
+
+.nc-cat-img {
+  height: 180px;
+  width: 100%;
+}
+
+.nc-cat-img img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  transition: transform .3s ease;
+}
+
+.nc-cat:hover .nc-cat-img img {
+  transform: scale(1.08);
 }
 
 .nc-cat h5 {
@@ -1691,31 +1706,6 @@ h6 {
 
 .btn-animate:hover {
   transform: translateY(-3px);
-}
-
-
-/* Floating */
-
-.floating {
-  animation: float 5s ease-in-out infinite;
-}
-
-.floating-delay {
-  animation: float 5s ease-in-out infinite;
-  animation-delay: 1s;
-}
-
-@keyframes float {
-
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-15px);
-  }
-
 }
 
 
