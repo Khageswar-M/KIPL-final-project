@@ -21,7 +21,7 @@
 <body>
   <div id="nc-navbar"></div>
 
-  <section class="nc-hero reveal">
+  <section class="nc-hero  ">
     <div class="container-nc">
       <div class="row align-items-center g-5">
         <div class="col-lg-6">
@@ -35,19 +35,19 @@
           </div>
           <div class="row g-3 mt-4">
             <div class="col-4">
-              <div class="nc-hero-stat reveal">
+              <div class="nc-hero-stat  ">
                 <h3>50K+</h3>
                 <p>Products</p>
               </div>
             </div>
             <div class="col-4">
-              <div class="nc-hero-stat reveal">
+              <div class="nc-hero-stat  ">
                 <h3>200+</h3>
                 <p>Brands</p>
               </div>
             </div>
             <div class="col-4">
-              <div class="nc-hero-stat reveal">
+              <div class="nc-hero-stat  ">
                 <h3>4.9★</h3>
                 <p>Rated</p>
               </div>
@@ -69,7 +69,7 @@
     </div>
   </section>
 
-  <section class="nc-section pt-0 reveal">
+  <section class="nc-section pt-0  ">
     <div class="container-nc">
       <div class="nc-section-head">
         <div>
@@ -81,9 +81,9 @@
     </div>
   </section>
 
-  <section class="nc-section reveal">
+  <section class="nc-section  ">
     <div class="container-nc">
-      <div class="nc-flash reveal mb-4">
+      <div class="nc-flash   mb-4">
         <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
           <div><span class="eyebrow" style="color:var(--nc-primary);font-weight:700;letter-spacing:2px;font-size:12px">⚡
               FLASH SALE</span>
@@ -116,7 +116,7 @@
     </div>
   </section>
 
-  <section class="nc-section reveal">
+  <section class="nc-section  ">
     <div class="container-nc">
       <div class="nc-section-head">
         <div>
@@ -128,7 +128,7 @@
     </div>
   </section>
 
-  <section class="nc-section reveal">
+  <section class="nc-section  ">
     <div class="container-nc">
       <div class="nc-section-head">
         <div>
@@ -140,7 +140,7 @@
     </div>
   </section>
 
-  <section class="nc-section reveal">
+  <section class="nc-section  ">
     <div class="container-nc">
       <div class="nc-section-head">
         <div>
@@ -150,7 +150,7 @@
       </div>
       <div class="row g-3">
         <div class="col-md-3 col-6">
-          <div class="nc-feature card-hover reveal">
+          <div class="nc-feature card-hover  ">
             <div class="ic">
               <i class="fa-solid fa-truck-fast"></i>
             </div>
@@ -160,7 +160,7 @@
         </div>
 
         <div class="col-md-3 col-6">
-          <div class="nc-feature card-hover reveal">
+          <div class="nc-feature card-hover  ">
             <div class="ic">
               <i class="fa-solid fa-shield-halved"></i>
             </div>
@@ -170,7 +170,7 @@
         </div>
 
         <div class="col-md-3 col-6">
-          <div class="nc-feature card-hover reveal">
+          <div class="nc-feature card-hover  ">
             <div class="ic">
               <i class="fa-solid fa-headset"></i>
             </div>
@@ -180,7 +180,7 @@
         </div>
 
         <div class="col-md-3 col-6">
-          <div class="nc-feature card-hover reveal">
+          <div class="nc-feature card-hover  ">
             <div class="ic">
               <i class="fa-solid fa-lock"></i>
             </div>
@@ -192,7 +192,7 @@
     </div>
   </section>
 
-  <section class="nc-section reveal">
+  <section class="nc-section  ">
     <div class="container-nc">
       <div class="nc-section-head">
         <div>
@@ -202,7 +202,7 @@
       </div>
       <div class="row g-3">
         <div class="col-md-4">
-          <div class="nc-testi card-hover reveal">
+          <div class="nc-testi card-hover  ">
             <div class="stars">★★★★★</div>
             <p>"Genuinely the best shopping experience I've had online. Delivery was crazy fast and the packaging felt
               premium."</p>
@@ -215,7 +215,7 @@
           </div>
         </div>
         <div class="col-md-4">
-          <div class="nc-testi card-hover reveal">
+          <div class="nc-testi card-hover  ">
             <div class="stars">★★★★★</div>
             <p>"Prices are unbeatable and the app UI is chef's kiss. I've replaced Amazon with NovaCart for gadgets."
             </p>
@@ -228,7 +228,7 @@
           </div>
         </div>
         <div class="col-md-4">
-          <div class="nc-testi card-hover reveal">
+          <div class="nc-testi card-hover  ">
             <div class="stars">★★★★★</div>
             <p>"Customer support answered in under a minute. Refunded a defective item next day. Very impressed."</p>
             <div class="who">
@@ -243,7 +243,7 @@
     </div>
   </section>
 
-  <section class="nc-section reveal">
+  <section class="nc-section  ">
     <div class="container-nc">
       <div class="nc-newsletter shadow">
         <h2>Join the NovaCart Insider</h2>
@@ -257,45 +257,50 @@
   </section>
 
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-
+    document.addEventListener("DOMContentLoaded", async () => {
+      await NovaCart.ready;
+      console.log(NovaCart.selectedCategory);
       document.getElementById("catGrid").innerHTML =
         NovaCart.categories.map(c => `
-    <div class="col-12 col-md-4 col-lg-3">
-        <a href="products.html" class="text-decoration-none text-dark">
-            <div class="nc-cat card-hover reveal pb-2">
+        <div class="col-12 col-md-4 col-lg-3">
+            <a href="products.html" class="text-decoration-none text-dark"
+              onclick="NovaCart.setSelectedCategory('${c.name}')"
+            >
+                <div class="nc-cat card-hover pb-2">
 
-                <div
-                    class="nc-cat-img d-flex justify-content-center align-items-center"
-                    style="background-image: url('${c.img}'); background-size: cover; background-position: center center">
+                    <div
+                        class="nc-cat-img d-flex justify-content-center align-items-center"
+                        style="background-image: url('${c.img}'); background-size: cover; background-position: center center">
+                    </div>
+
+                    <h5 class="mt-3 mb-1">${c.name}</h5>
+                    <p class="mb-0 text-muted">${c.count} Products</p>
                 </div>
-
-                <h5 class="mt-3 mb-1">${c.name}</h5>
-                <p class="mb-0 text-muted">${c.count} Products</p>
-            </div>
-        </a>
-    </div>
-`).join("");
+            </a>
+        </div>
+      `).join("");
 
       document.getElementById("brandGrid").innerHTML =
-        NovaCart.brands.map(b => `
+        NovaCart.brands.slice(0, 10).map(b => `
         <div class="col-6 col-md-3">
-            <div class="nc-brand card-hover reveal">
+            <div class="nc-brand card-hover  ">
                 ${b}
             </div>
         </div>
-    `).join("");
+      `).join("");
 
+
+      console.log("Length", NovaCart.products.length);
       document.getElementById("pgrid").innerHTML =
-        NovaCart.products.slice(0, 4).map(p => `
-        <div class="col-6 col-md-4 col-lg-3 reveal">
+        NovaCart.products.slice(0, 25).map(p => `
+        <div class="col-6 col-md-4 col-lg-3  ">
             ${productCard(p)}
         </div>
     `).join("");
 
       document.getElementById("pgrid2").innerHTML =
         NovaCart.products.slice(4, 12).map(p => `
-        <div class="col-6 col-md-4 col-lg-3 reveal">
+        <div class="col-6 col-md-4 col-lg-3  ">
             ${productCard(p)}
         </div>
     `).join("");

@@ -19,42 +19,35 @@
 <body>
   <div id="nc-navbar"></div>
 
-  <div class="container-nc nc-crumb"><a href="home.html">Home</a><span class="sep">/</span>Shop</div>
-  <section class="pb-5">
+  <section class="pb-5 pt-5">
     <div class="container-nc ">
       <div class="row g-4">
         <div class="col-lg-3">
           <div class="nc-filter">
-            <div class="grp reveal">
+            <div class="grp   ">
               <h6>Category</h6>
-              <label class="nc-check"><input type="checkbox" checked> Audio (142)</label>
-              <label class="nc-check"><input type="checkbox"> Wearables (98)</label>
-              <label class="nc-check"><input type="checkbox"> Cameras (76)</label>
-              <label class="nc-check"><input type="checkbox"> Computers (210)</label>
-              <label class="nc-check"><input type="checkbox"> Gaming (154)</label>
-            </div>
-            <div class="grp reveal">
-              <h6>Brand</h6>
-              <label class="nc-check"><input type="checkbox"> Sonicwave</label>
-              <label class="nc-check"><input type="checkbox"> Chronos</label>
-              <label class="nc-check"><input type="checkbox"> Lensix</label>
-              <label class="nc-check"><input type="checkbox"> Keytron</label>
-              <label class="nc-check"><input type="checkbox"> Playtron</label>
-            </div>
-            <div class="grp reveal">
-              <h6>Price</h6>
-              <input type="range" min="0" max="1000" value="500" class="nc-price-range">
-              <div class="d-flex justify-content-between text-muted-nc mt-2" style="font-size:12px">
-                <span>$0</span><span>$1000</span>
+              <div id="categoriesListWithAllAvailableProducts" class="overflow-y-auto pe-2" style="max-height: 220px;">
               </div>
             </div>
-            <div class="grp reveal">
+            <div class="grp   ">
+              <h6>Brand</h6>
+              <div id="brandsList" class="overflow-y-auto pe-2" style="max-height: 220px;"></div>
+            </div>
+            <div class="grp   ">
+              <h6>Price</h6>
+              <div id="priceUnder"></div>
+              <input id="rangeInput" type="range" min="0" max="1000" value="500" class="nc-price-range">
+              <div id="priceRange" class="d-flex justify-content-between text-muted-nc mt-2" style="font-size:12px">
+
+              </div>
+            </div>
+            <div class="grp   ">
               <h6>Rating</h6>
               <label class="nc-check"><input type="checkbox"> ★★★★★ &amp; up</label>
               <label class="nc-check"><input type="checkbox"> ★★★★ &amp; up</label>
               <label class="nc-check"><input type="checkbox"> ★★★ &amp; up</label>
             </div>
-            <div class="grp reveal">
+            <div class="grp   ">
               <h6>Discount</h6>
               <label class="nc-check"><input type="checkbox"> 10% or more</label>
               <label class="nc-check"><input type="checkbox"> 25% or more</label>
@@ -62,7 +55,7 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-9 reveal">
+        <div class="col-lg-9   ">
           <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
             <div class="text-muted-nc" style="font-size:14px">Showing <b class="">12 of 320</b> products</div>
             <div class="d-flex gap-2 align-items-center">
@@ -86,13 +79,65 @@
     </div>
   </section>
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const c = document.getElementById('pgrid');
-      if (c) c.innerHTML = NovaCart.products.map(p =>
-        `<div class="col-6 col-md-4 col-lg-3">${productCard(p)}</div>`)
-        .join('');
+    document.addEventListener('DOMContentLoaded', async () => {
+      await NovaCart.ready;
+      const c = document.getElementById("pgrid");
+      const categoryContainer = document.getElementById("categoriesListWithAllAvailableProducts");
+      const brandsContainer = document.getElementById("brandsList");
+      const priceRangeContainer = document.getElementById("priceRange");
+      const priceRangeInput = document.getElementById("rangeInput");
+      const priceUnder = document.getElementById("priceUnder");
 
-        const observer = new IntersectionObserver((entries) => {
+      const category = sessionStorage.getItem("selectedCategory") || "All";
+      // console.log(category);
+      // console.log("Categorized product: ",NovaCart.products.filter((p) => p.cat === category));
+      // console.log(NovaCart.products);
+      console.log("categories list: ", NovaCart.categories);
+
+      const filteredProducts =
+        category === "All"
+          ? NovaCart.products
+          : NovaCart.products.filter(p => p.cat === category);
+
+
+      if (c) {
+        c.innerHTML = filteredProducts
+          .map(p => `<div class="col-6 col-md-4 col-lg-3">${productCard(p)}</div>`)
+          .join("");
+      }
+
+      function formatCategory(category) {
+        const availableProductsCount = NovaCart.products.filter(product => product.cat === category).length;
+        return category
+          .split("-")
+          .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(" ") + `(${availableProductsCount})`;
+      }
+
+      categoryContainer.innerHTML = NovaCart.categories
+        .map(category => `
+          <label class="nc-check">
+            <input type="checkbox" style="cursor: pointer;"> ${formatCategory(category.name)}
+          </label>
+        `).join("");
+
+      brandsContainer.innerHTML = NovaCart.brands.map(brand => `
+          <label class="nc-check"><input type="checkbox"> ${brand}</label>
+      `).join("");
+
+
+      const minPrice = Math.min(...NovaCart.products.map(product => product.price));
+      const maxPrice = Math.max(...NovaCart.products.map(product => product.price));
+      priceRangeContainer.innerHTML = `<span>₹${minPrice}</span><span>₹${maxPrice}</span>`
+      priceRangeInput.min = minPrice;
+      priceRangeInput.max = maxPrice;
+      priceRangeInput.value = (minPrice + maxPrice) / 2;
+      priceUnder.textContent = `Under ₹${priceRangeInput.value}`;
+      priceRangeInput.addEventListener("input", () => {
+        priceUnder.textContent = `Under ₹${priceRangeInput.value}`;
+      });
+
+      const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             entry.target.classList.add("active");

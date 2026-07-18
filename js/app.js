@@ -9,199 +9,72 @@
   ];
 
   window.NovaCart = {
-    products: [
-      {
-        id: 1,
-        title: "Aurora Wireless Headphones",
-        brand: "Sonicwave",
-        price: 129, old: 189,
-        rating: 4.8,
-        discount: 32,
-        img: "https://i.pinimg.com/control1/1200x/d1/fe/28/d1fe282fdaea14a1354eb2c855e9068c.jpg",
-        cat: "Audio"
-      },
-      {
-        id: 2,
-        title: "Nimbus Smart Watch Pro",
-        brand: "Chronos",
-        price: 249,
-        old: 329,
-        rating: 4.7,
-        discount: 24,
-        img: "https://i.pinimg.com/1200x/97/12/34/971234ec72999b1b702575537d42e480.jpg",
-        cat: "Wearables"
-      },
-      {
-        id: 3,
-        title: "Vertex 4K Action Cam",
-        brand: "Lensix",
-        price: 319,
-        old: 399,
-        rating: 4.6,
-        discount: 20,
-        img: "https://i.pinimg.com/1200x/bd/04/03/bd04031cd1dd61455fbb58aee0f48896.jpg",
-        cat: "Cameras"
-      },
-      {
-        id: 4,
-        title: "Zenith Mechanical Keyboard",
-        brand: "Keytron",
-        price: 99,
-        old: 139,
-        rating: 4.9,
-        discount: 28,
-        img: "https://i.pinimg.com/1200x/6e/10/52/6e105243846ef52a9581785e513fe4f7.jpg",
-        cat: "Computers"
-      },
-      {
-        id: 5,
-        title: "Orbit Wireless Mouse",
-        brand: "Keytron",
-        price: 49,
-        old: 69,
-        rating: 4.5,
-        discount: 29,
-        img: "https://i.pinimg.com/1200x/84/3b/67/843b676340d579d021b089e7a37b6a2c.jpg",
-        cat: "Computers"
-
-      },
-      {
-        id: 6,
-        title: "Nova Portable Speaker",
-        brand: "Sonicwave",
-        price: 79,
-        old: 119,
-        rating: 4.4,
-        discount: 33,
-        img: "https://i.pinimg.com/736x/b4/13/1c/b4131c738b31f6388990d41e80acfca6.jpg",
-        cat: "Audio"
-
-      },
-      {
-        id: 7,
-        title: "Pulse Fitness Band",
-        brand: "Chronos",
-        price: 59,
-        old: 89,
-        rating: 4.3,
-        discount: 33,
-        img: "https://i.pinimg.com/736x/08/a9/d4/08a9d46b2eee874b2f33a5ab31ecd1a4.jpg",
-        cat: "Wearables"
-
-      },
-      {
-        id: 8,
-        title: "Flux Gaming Console",
-        brand: "Playtron",
-        price: 499,
-        old: 599,
-        rating: 4.9,
-        discount: 16,
-        img: "https://i.pinimg.com/736x/77/25/b5/7725b50bdc733f3525f53147cba98f67.jpg",
-        cat: "Gaming"
-
-      },
-      {
-        id: 9,
-        title: "Halo Smart Ring",
-        brand: "Chronos",
-        price: 189,
-        old: 229,
-        rating: 4.2,
-        discount: 17,
-        img: "https://i.pinimg.com/1200x/cd/96/a8/cd96a8f6a992d7c4e5a1ad3572cd04db.jpg",
-        cat: "Wearables"
-
-      },
-      {
-        id: 10,
-        title: "Comet Drone Explorer",
-        brand: "Lensix",
-        price: 449,
-        old: 549,
-        rating: 4.6,
-        discount: 18,
-        img: "https://i.pinimg.com/1200x/b0/77/c6/b077c64cca3611d4c77d1257065a52b8.jpg",
-        cat: "Cameras"
-
-      },
-      {
-        id: 11,
-        title: "Prism VR Headset",
-        brand: "Playtron",
-        price: 349,
-        old: 429,
-        rating: 4.5,
-        discount: 18,
-        img: "https://i.pinimg.com/736x/36/f4/94/36f494483816ecca8645a7a65b81a667.jpg",
-        cat: "Gaming"
-
-      },
-      {
-        id: 12,
-        title: "Solaris Power Bank 20K",
-        brand: "Voltix",
-        price: 39,
-        old: 59,
-        rating: 4.7,
-        discount: 33,
-        img: "https://i.pinimg.com/control1/1200x/2c/c9/df/2cc9dfcbff71e6606f85f7b37471ce89.jpg",
-        cat: "Accessories"
-
-      }
-    ],
-    categories: [
-      {
-        name: "Audio",
-        img: "https://i.pinimg.com/control1/1200x/d1/fe/28/d1fe282fdaea14a1354eb2c855e9068c.jpg",
-        count: 142
-
-      },
-      {
-        name: "Wearables",
-        img: "https://i.pinimg.com/1200x/9a/b1/2c/9ab12cc297b2da1203cf11e0e9d7012e.jpg",
-        count: 98
-
-      },
-      {
-        name: "Cameras",
-        img: "https://i.pinimg.com/736x/47/3a/fb/473afbade22da50e708ab05ca1aeac27.jpg",
-        count: 76
-
-      },
-      {
-        name: "Computers",
-        img: "https://i.pinimg.com/1200x/10/44/86/104486db81ab6f355d0af1273527a19c.jpg",
-        count: 210
-
-      },
-      {
-        name: "Gaming",
-        img: "https://i.pinimg.com/1200x/09/ca/b4/09cab4f5c1b20bd8b2eba0665616e384.jpg",
-        count: 154
-
-      },
-      {
-        name: "Phones",
-        img: "https://i.pinimg.com/736x/4a/7c/c0/4a7cc03930c9432d380ce625f71e699d.jpg",
-        count: 88
-
-      },
-      {
-        name: "Home",
-        img: "https://i.pinimg.com/736x/40/62/35/4062351cfafce06b226e40df965bba27.jpg",
-        count: 301
-
-      },
-      {
-        name: "Fashion",
-        img: "https://i.pinimg.com/736x/62/f8/f4/62f8f4451b04651ded48039725bc77b5.jpg",
-        count: 520
-
-      }
-    ],
-    brands: ["Sonicwave", "Chronos", "Lensix", "Keytron", "Playtron", "Voltix", "Zephyr", "Nebula"]
+    products: [],
+    categories: [],
+    brands: [],
+    selectedCategory: "All",
   };
+
+  async function loadFakeProducts() {
+    try {
+
+      const response = await fetch("https://dummyjson.com/products?limit=200");
+      const data = await response.json();
+
+      const transformedProducts = data.products.map(product => ({
+        id: product.id + 1000,              // avoid id conflicts
+        title: product.title,
+        brand: product.brand,
+        price: Math.round(product.price),
+        old: Math.round(product.price / (1 - product.discountPercentage / 100)),
+        rating: Number(product.rating.toFixed(1)),
+        discount: Math.round(product.discountPercentage),
+        img: product.thumbnail,
+        cat: product.category
+      }));
+
+      // merger with existing products
+      window.NovaCart.products.push(...transformedProducts);
+
+      // update brands
+      const allBrands = new Set([
+        ...window.NovaCart.brands,
+        ...transformedProducts.map(p => p.brand)
+      ]);
+
+      window.NovaCart.brands = [...allBrands];
+
+      // Update categories
+      transformedProducts.forEach(product => {
+
+        const existing = window.NovaCart.categories.find(
+          c => c.name.toLowerCase() === product.cat.toLowerCase()
+        );
+
+        if (existing) {
+          existing.count++;
+        } else {
+          window.NovaCart.categories.push({
+            name: product.cat,
+            img: product.img,
+            count: 1
+          });
+        }
+
+      });
+
+      console.log("Loaded", transformedProducts.length, "products");
+      console.log(window.NovaCart);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  window.NovaCart.ready = loadFakeProducts();
+
+  window.NovaCart.setSelectedCategory = function(category){
+    sessionStorage.setItem("selectedCategory", category);
+  }
 
   function currentPage() {
     const p = location.pathname.split("/").pop() || "index.html";
@@ -308,7 +181,7 @@
         <div class="brand">${p.brand}</div>
         <a href="product-details.html?id=${p.id}"><div class="title">${p.title}</div></a>
         <div class="stars">${"★".repeat(Math.floor(p.rating))}${"☆".repeat(5 - Math.floor(p.rating))} <span class="text-muted-nc">(${p.rating})</span></div>
-        <div class="price mt-1">$${p.price}<small>$${p.old}</small></div>
+        <div class="price mt-1">₹${(p.price * 90).toFixed(0, 2)}<small>$${p.old}</small></div>
         <button class="add" onclick="ncToast('Added to cart')">Add to Cart</button>
       </div>
     </div>`;
@@ -338,7 +211,8 @@
     tick(); setInterval(tick, 1000);
   };
 
-  document.addEventListener("DOMContentLoaded", () => {
+  document.addEventListener("DOMContentLoaded", async () => {
+    await window.NovaCart.ready;
     const nav = document.getElementById("nc-navbar");
     const ft = document.getElementById("nc-footer");
     if (nav) renderNavbar(nav);
