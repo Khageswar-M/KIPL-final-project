@@ -19,7 +19,7 @@
 <body>
   <div id="nc-navbar"></div>
 
-  <section class="nc-hero" style="padding:50px 0 70px reveal">
+  <section class="nc-hero" style="padding:50px 0 70px  ">
     <div class="container-nc">
       <div class="row align-items-center g-4">
         <div class="col-lg-7">
@@ -33,37 +33,47 @@
         </div>
         <div class="col-lg-5">
           <div class="row g-3">
-            <div class="col-6"><a href="products.html">
-                <div class="nc-cat" style="aspect-ratio:1;display:flex;flex-direction:column;justify-content:center">
-                  <div class="emoji">🎧</div>
-                  <h5>Audio</h5>
+
+            <div class="col-6">
+              <a href="products.html" onclick='sessionStorage.setItem("selectedCategory", "laptops")'>
+                <div class="nc-cat hero-card"
+                  style="aspect-ratio:1;display:flex;flex-direction:column;justify-content:center">
                 </div>
-              </a></div>
-            <div class="col-6"><a href="products.html">
-                <div class="nc-cat" style="aspect-ratio:1;display:flex;flex-direction:column;justify-content:center">
-                  <div class="emoji">⌚</div>
-                  <h5>Wearables</h5>
+              </a>
+            </div>
+
+            <div class="col-6">
+              <a href="products.html" onclick='sessionStorage.setItem("selectedCategory", "mens-watches")'>
+                <div class="nc-cat hero-card"
+                  style="aspect-ratio:1;display:flex;flex-direction:column;justify-content:center">
+
                 </div>
-              </a></div>
-            <div class="col-6"><a href="products.html">
-                <div class="nc-cat" style="aspect-ratio:1;display:flex;flex-direction:column;justify-content:center">
-                  <div class="emoji">🎮</div>
-                  <h5>Gaming</h5>
+              </a>
+            </div>
+
+            <div class="col-6">
+              <a href="products.html" onclick='sessionStorage.setItem("selectedCategory", "mens-shoes")'>
+                <div class="nc-cat hero-card"
+                  style="aspect-ratio:1;display:flex;flex-direction:column;justify-content:center">
                 </div>
-              </a></div>
-            <div class="col-6"><a href="products.html">
-                <div class="nc-cat" style="aspect-ratio:1;display:flex;flex-direction:column;justify-content:center">
-                  <div class="emoji">📷</div>
-                  <h5>Cameras</h5>
+              </a>
+            </div>
+
+            <div class="col-6">
+              <a href="products.html" onclick='sessionStorage.setItem("selectedCategory", "smartphones")'>
+                <div class="nc-cat hero-card"
+                  style="aspect-ratio:1;display:flex;flex-direction:column;justify-content:center">
                 </div>
-              </a></div>
+              </a>
+            </div>
+
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="nc-section pt-0 reveal">
+  <section class="nc-section pt-0  ">
     <div class="container-nc">
       <div class="nc-flash">
         <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
@@ -79,19 +89,20 @@
     </div>
   </section>
 
-  <section class="nc-section pt-0 reveal">
+  <section class="nc-section pt-0">
     <div class="container-nc">
       <div class="nc-section-head">
         <div>
           <div class="eyebrow">Just for you</div>
           <h2>Recommended</h2>
-        </div><a href="products.html" class="btn-nc-ghost">View all →</a>
+        </div>
+        <a href="products.html" class="btn-nc-ghost">View all →</a>
       </div>
       <div class="row g-3" id="pgrid"></div>
     </div>
   </section>
 
-  <section class="nc-section pt-0 reveal">
+  <section class="nc-section pt-0  ">
     <div class="container-nc">
       <div class="nc-section-head">
         <div>
@@ -103,7 +114,7 @@
     </div>
   </section>
 
-  <section class="nc-section reveal">
+  <section class="nc-section  ">
     <div class="container-nc">
       <div class="nc-newsletter">
         <h2>10% off your first order</h2>
@@ -114,10 +125,45 @@
     </div>
   </section>
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      document.getElementById('pgrid').innerHTML = NovaCart.products.slice(0, 8).map(p => `<div class="col-6 col-md-4 col-lg-3">${productCard(p)}</div>`).join('');
-      document.getElementById('pgrid2').innerHTML = NovaCart.products.slice(4, 8).map(p => `<div class="col-6 col-md-4 col-lg-3">${productCard(p)}</div>`).join('');
-      ncCountdown('#ft');
+    document.addEventListener('DOMContentLoaded', async () => {
+      await window.NovaCart.ready;
+      const recommendedContainer = document.getElementById("pgrid");
+      const newArrivalsContainer = document.getElementById("pgrid2");
+
+      function heroCards(params) {
+        const heroCards = document.querySelectorAll(".hero-card");
+
+        const heroCardsBgImg = [
+          "https://i.pinimg.com/1200x/c7/3e/fe/c73efe1d1140152e7eb975dfebc346b1.jpg",
+          "https://i.pinimg.com/control1/1200x/11/63/84/116384cf098ca99ce9ee575fc3354965.jpg",
+          "https://i.pinimg.com/1200x/e8/fd/c1/e8fdc1cafebf6361b199dc574b87e8d7.jpg",
+          "https://i.pinimg.com/736x/27/bf/43/27bf430593fe9b592abc830ecb2a5996.jpg"
+        ];
+
+        heroCards.forEach((card, idx) => {
+          card.style.backgroundImage = `url(${heroCardsBgImg[idx]})`;
+          card.style.backgroundSize = "cover";
+          card.style.backgroundPosition = "center";
+          card.style.backgroundRepeat = "no-repeat";
+        });
+      }
+      heroCards();
+
+      function handleRecommended() {
+        const products = window.NovaCart.products.slice(50, 60);
+        recommendedContainer.innerHTML = products.map(p => `<div class="col-6 col-md-4 col-lg-3">
+          ${productCard(p)}
+        </div>`).join("");
+      }
+      handleRecommended();
+
+      function handleNewArrival(){
+        const products = window.NovaCart.products.slice(90, 100);
+        newArrivalsContainer.innerHTML = products.map(p => `<div class="col-6 col-md-4 col-lg-3">
+          ${productCard(p)}
+        </div>`).join("");
+      }
+      handleNewArrival();
 
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {

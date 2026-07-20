@@ -1,51 +1,159 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Checkout · NovaCart</title>
-<meta name="description" content="NovaCart — the next-generation ecommerce experience for gadgets, fashion and lifestyle.">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-<link rel="stylesheet" href="css/style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Checkout · NovaCart</title>
+  <meta name="description"
+    content="NovaCart — the next-generation ecommerce experience for gadgets, fashion and lifestyle.">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
 
 </head>
-<body>
-<div id="nc-navbar"></div>
 
-<div class="container-nc pt-4"><div class="nc-steps"><div class="st active"><div class="n">1</div>Cart</div><div class="line"></div><div class="st active"><div class="n">2</div>Address</div><div class="line"></div><div class="st "><div class="n">3</div>Payment</div><div class="line"></div><div class="st "><div class="n">4</div>Done</div></div></div>
-<section class="pb-5"><div class="container-nc"><div class="row g-4">
-  <div class="col-lg-8">
-    <div class="p-4 bg-surface rounded-nc border-nc mb-3">
-      <div class="d-flex justify-content-between align-items-center mb-3"><h5 class="mb-0">Shipping Address</h5><a href="address.html" class="text-primary-nc" style="font-size:14px">+ Add new</a></div>
-      <div class="row g-3">
-        <div class="col-md-6"><div class="nc-address default"><span class="tag">Default</span><h6>Home</h6><p class="text-muted-nc mb-1">Jane Doe · +1 555 123 456</p><p class="text-muted-nc mb-0">221B Baker St, Apt 4<br>San Francisco, CA 94103</p></div></div>
-        <div class="col-md-6"><div class="nc-address"><h6>Office</h6><p class="text-muted-nc mb-1">Jane Doe · +1 555 987 654</p><p class="text-muted-nc mb-0">1 Market St, Floor 20<br>San Francisco, CA 94105</p></div></div>
+<body>
+  <div id="nc-navbar"></div>
+
+  <div class="container-nc pt-4">
+    <div class="nc-steps">
+      <div class="st active">
+        <div class="n">1</div>Cart
+      </div>
+      <div class="line"></div>
+      <div class="st active">
+        <div class="n">2</div>Address
+      </div>
+      <div class="line"></div>
+      <div class="st ">
+        <div class="n">3</div>Payment
+      </div>
+      <div class="line"></div>
+      <div class="st ">
+        <div class="n">4</div>Done
       </div>
     </div>
-    <div class="p-4 bg-surface rounded-nc border-nc">
-      <h5>Delivery Method</h5>
-      <label class="nc-check p-3 mt-2 border-nc rounded-nc"><input type="radio" name="d" checked> <div class="flex-grow-1"><div class=" fw-semibold">Standard · Free</div><small class="text-muted-nc">Arrives in 2–4 business days</small></div></label>
-      <label class="nc-check p-3 mt-2 border-nc rounded-nc"><input type="radio" name="d"> <div class="flex-grow-1"><div class=" fw-semibold">Express · $12</div><small class="text-muted-nc">Arrives next business day</small></div></label>
-      <label class="nc-check p-3 mt-2 border-nc rounded-nc"><input type="radio" name="d"> <div class="flex-grow-1"><div class=" fw-semibold">Same Day · $24</div><small class="text-muted-nc">Delivered in 4 hours (select cities)</small></div></label>
-    </div>
   </div>
-  <div class="col-lg-4">
-    <div class="nc-summary">
-      <h5>Order Summary</h5>
-      <div class="row"><span>Subtotal</span><span class=" ms-auto">$457.00</span></div>
-      <div class="row"><span>Shipping</span><span class=" ms-auto">Free</span></div>
-      <div class="row"><span>Tax</span><span class=" ms-auto">$36.56</span></div>
-      <div class="row"><span>Coupon (NOVA20)</span><span style="color:var(--nc-accent)" class="ms-auto">−$40.00</span></div>
-      <div class="row total"><span>Total</span><span class="ms-auto">$453.56</span></div>
-      <a href="payment.html" class="btn-nc w-100 justify-content-center mt-3">Continue to Payment →</a>
-    </div>
-  </div>
-</div></div></section>
+  <section class="pb-5">
+    <div class="container-nc">
+      <div class="row g-4">
+        <div class="col-lg-8">
+          <div class="p-4 bg-surface rounded-nc border-nc mb-3">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h5 class="mb-0">Shipping Address</h5><a href="address.html" class="text-primary-nc"
+                style="font-size:14px">+ Add new</a>
+            </div>
+            <div class="row g-3" id="checkoutAddressList">
+              <div class="col-md-6">
+                <div class="nc-address default"><span class="tag">Default</span>
+                  <h6>Home</h6>
+                  <p class="text-muted-nc mb-1">Jane Doe · +1 555 123 456</p>
+                  <p class="text-muted-nc mb-0">221B Baker St, Apt 4<br>San Francisco, CA 94103</p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="nc-address">
+                  <h6>Office</h6>
+                  <p class="text-muted-nc mb-1">Jane Doe · +1 555 987 654</p>
+                  <p class="text-muted-nc mb-0">1 Market St, Floor 20<br>San Francisco, CA 94105</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="p-4 bg-surface rounded-nc border-nc">
+            <h5>Delivery Method</h5>
+            <label class="nc-check p-3 mt-2 border-nc rounded-nc">
+              <input type="radio" value="0" name="d" checked>
+              <div class="flex-grow-1">
+                <div class=" fw-semibold">
+                  Standard · Free
+                </div>
+                <small class="text-muted-nc">
+                  Arrives in 2–4 business
+                  days
+                </small>
+              </div>
+            </label>
+            <label class="nc-check p-3 mt-2 border-nc rounded-nc">
+              <input type="radio" value="99" name="d">
+              <div class="flex-grow-1">
+                <div class=" fw-semibold">
+                  Express ·  ₹99
+                </div>
+                <small class="text-muted-nc">
+                  Arrives next business
+                  day
+                </small>
+              </div>
+            </label>
+            <label class="nc-check p-3 mt-2 border-nc rounded-nc">
+              <input type="radio" value="199" name="d">
+              <div class="flex-grow-1">
+                <div class=" fw-semibold">
+                  Same Day · ₹199
+                </div>
+                <small class="text-muted-nc">
+                  Delivered in 4 hours (select
+                  cities)
+                </small>
+              </div>
+            </label>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="nc-summary">
+            <h5>Order Summary</h5>
+            <div class="row">
+              <span>Subtotal</span>
+              <span class=" ms-auto" id="subtotalAmount">
+                ₹00.00
+              </span>
+            </div>
 
-<div id="nc-footer"></div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="js/app.js"></script>
+            <div class="row">
+              <span>Shipping</span>
+              <span class=" ms-auto" id="shippingCharge">Free</span>
+            </div>
+
+            <div class="row">
+              <span>Tax</span>
+              <span class=" ms-auto" id="taxAmount">
+                ₹00.00
+              </span>
+            </div>
+
+            <div class="row">
+              <span>Discount</span>
+              <span style="color:var(--nc-accent)"
+                class="ms-auto" id="discountAmount">₹00.00
+              </span>
+            </div>
+            <div class="row">
+              <span>Delivery</span>
+              <span style="color:var(--nc-accent)"
+                class="ms-auto" id="deliveryCharge">₹00.00
+              </span>
+            </div>
+
+            <div class="row total">
+              <span>Total</span>
+              <span class="ms-auto" id="totalAmount">₹00.00</span>
+            </div>
+            <a href="payment.html" class="btn-nc w-100 justify-content-center mt-3">Continue to Payment →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="nc-footer"></div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/checkout.js"></script>
 </body>
+
 </html>

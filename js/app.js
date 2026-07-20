@@ -22,7 +22,7 @@
       const data = await response.json();
 
       const transformedProducts = data.products.map(product => ({
-        id: product.id + 1000,              // avoid id conflicts
+        id: product.id,              // avoid id conflicts
         title: product.title,
         brand: product.brand,
         price: Math.round(product.price),
@@ -72,7 +72,7 @@
 
   window.NovaCart.ready = loadFakeProducts();
 
-  window.NovaCart.setSelectedCategory = function(category){
+  window.NovaCart.setSelectedCategory = function (category) {
     sessionStorage.setItem("selectedCategory", category);
   }
 
@@ -119,7 +119,7 @@
                 <span class="nc-badge">3</span>
               </a>
               <a href="compare.html" class="nc-icon-btn" title="Compare"><i class="fa-solid fa-code-compare"></i></a>
-              <a href="cart.html" class="nc-icon-btn" title="Cart"><i class="fa-solid fa-cart-shopping"></i><span class="nc-badge">2</span></a>
+              <a href="cart.html" class="nc-icon-btn" title="Cart"><i class="fa-solid fa-cart-shopping"></i><span class="nc-badge">${window.cart.items.length}</span></a>
               <a href="profile.html" class="nc-icon-btn" title="Account"><i class="fa-regular fa-user"></i></a>
               <a href="login.html" class="btn-nc d-none d-lg-inline-flex" style="padding:8px 18px;font-size:13px">Login</a>
             </div>
@@ -181,10 +181,57 @@
         <div class="brand">${p.brand}</div>
         <a href="product-details.html?id=${p.id}"><div class="title">${p.title}</div></a>
         <div class="stars">${"★".repeat(Math.floor(p.rating))}${"☆".repeat(5 - Math.floor(p.rating))} <span class="text-muted-nc">(${p.rating})</span></div>
-        <div class="price mt-1">₹${(p.price * 90).toFixed(0, 2)}<small>$${p.old}</small></div>
-        <button class="add" onclick="ncToast('Added to cart')">Add to Cart</button>
+        <div class="price mt-1">₹${(p.price * 90).toFixed(0, 2)}<small>₹${(p.old * 90).toFixed(0, 2)}</small></div>
+        <button class="add" onclick="addToCart(${p.id})">Add to Cart</button>
       </div>
     </div>`;
+  };
+
+  
+
+  // Cart
+  window.cart = JSON.parse(localStorage.getItem("cart")) || {
+    items: [],
+    total: 0
+  };
+  console.log("In app js: ", window.cart.items.length);
+
+  window.addToCart = function (productId) {
+    const existing = window.cart.items.find(item => item.id === productId);
+
+    if (existing) {
+      existing.quantity++;
+    } else {
+      window.cart.items.push({
+        id: productId,
+        quantity: 1
+      });
+    }
+
+    // update total quantity
+    window.cart.total = window.cart.items.reduce((sum, item) => sum += item.quantity, 0);
+
+    localStorage.setItem("cart", JSON.stringify(window.cart));
+
+    ncToast("Added to cart");
+  }
+
+  window.removeFromCart = function (productId) {
+
+    // Remove the product
+    window.cart.items = window.cart.items.filter(item => item.id !== productId);
+    console.log("after click remove: ",window.cart.items);
+
+    // Update total quantity
+    window.cart.total = window.cart.items.reduce(
+      (sum, item) => sum + item.quantity,
+      0
+    );
+
+    // Save to localStorage
+    localStorage.setItem("cart", JSON.stringify(window.cart));
+
+    ncToast("Item removed from cart");
   };
 
   window.ncToast = function (msg) {
@@ -210,6 +257,8 @@
     }
     tick(); setInterval(tick, 1000);
   };
+
+
 
   document.addEventListener("DOMContentLoaded", async () => {
     await window.NovaCart.ready;

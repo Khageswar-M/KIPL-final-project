@@ -1,99 +1,106 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Product · NovaCart</title>
-<meta name="description" content="NovaCart — the next-generation ecommerce experience for gadgets, fashion and lifestyle.">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-<link rel="stylesheet" href="css/style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Product · NovaCart</title>
+  <meta name="description"
+    content="NovaCart — the next-generation ecommerce experience for gadgets, fashion and lifestyle.">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
 
 </head>
-<body>
-<div id="nc-navbar"></div>
 
-<div class="container-nc nc-crumb"><a href="home.html">Home</a><span class="sep">/</span><a href="products.html">Shop</a><span class="sep">/</span>Audio<span class="sep">/</span>Aurora Wireless Headphones</div>
-<section class="pb-5"><div class="container-nc">
-  <div class="row g-5">
-    <div class="col-lg-6">
-      <div class="pd-gallery" id="mainImg">🎧</div>
-      <div class="pd-thumbs">
-        <div class="t active" onclick="document.getElementById('mainImg').textContent='🎧'">🎧</div>
-        <div class="t" onclick="document.getElementById('mainImg').textContent='🎵'">🎵</div>
-        <div class="t" onclick="document.getElementById('mainImg').textContent='🔊'">🔊</div>
-        <div class="t" onclick="document.getElementById('mainImg').textContent='📦'">📦</div>
-      </div>
-    </div>
-    <div class="col-lg-6">
-      <div class="brand text-muted-nc" style="text-transform:uppercase;letter-spacing:2px;font-size:12px;font-weight:700">Sonicwave</div>
-      <h1 class="pd-title">Aurora Wireless Headphones — ANC</h1>
-      <div class="d-flex align-items-center gap-2 mb-3">
-        <span style="color:var(--nc-yellow)">★★★★★</span>
-        <span class="text-muted-nc" style="font-size:14px">4.8 · 1,204 reviews</span>
-        <span class="ms-2" style="color:var(--nc-accent);font-size:13px">● In Stock</span>
-      </div>
-      <div class="pd-price">$129<small>$189</small><span class="save">Save 32%</span></div>
-      <p class="text-muted-nc mt-3">Premium over-ear wireless headphones with active noise cancellation, 40-hour battery, and studio-grade drivers.</p>
-      <div class="mb-3"><label class="nc-label">Color</label>
-        <div class="d-flex gap-2">
-          <span style="width:36px;height:36px;border-radius:50%;background:#ffffff;border:2px solid var(--nc-primary);display:inline-block"></span>
-          <span style="width:36px;height:36px;border-radius:50%;background:#1f2937;border:2px solid var(--nc-border);display:inline-block"></span>
-          <span style="width:36px;height:36px;border-radius:50%;background:#ff4d6d;border:2px solid var(--nc-border);display:inline-block"></span>
+<body>
+  <div id="nc-navbar"></div>
+
+  <div class="container-nc nc-crumb">
+    <a href="home.html">Home</a>
+    <span class="sep">/</span>
+    <a href="products.html">Shop</a>
+    <span class="sep">/</span>
+    Audio
+    <span class="sep">/</span>
+    Aurora Wireless Headphones
+  </div>
+  <section class="pb-5">
+    <div class="container-nc">
+      <div class="row g-5">
+        <div class="col-lg-6">
+          <div class="pd-gallery" id="mainImg"></div>
+          <div class="pd-thumbs" id="thumbContainer"></div>
+        </div>
+        <div class="col-lg-6">
+          <div id="brand" class=" text-muted-nc"
+            style="text-transform:uppercase;letter-spacing:2px;font-size:12px;font-weight:700">Sonicwave</div>
+          <h1 id="title" class="">Aurora Wireless Headphones — ANC</h1>
+          <div id="" class=" rating d-flex align-items-center gap-2 mb-3">
+            <span style="color:var(--nc-yellow)">★</span>
+            <span id="" class="text-muted-nc" style="font-size:14px">4.8 · 1,204 reviews</span>
+            <span class="ms-2" style="color:var(--nc-accent);font-size:13px">● In Stock</span>
+          </div>
+          <div id="price" class="pd-price">$129<small>$189</small><span class="save">Save 32%</span></div>
+          <div class="mb-3">
+            <label class="nc-label">Category</label>
+            <label id="categoryName" class="nc-label text-muted fs-3">Category</label>
+          </div>
+          <div class="d-flex align-items-center gap-3 mb-3">
+            <label class="nc-label mb-0">Quantity</label>
+            <div class="nc-qty">
+              <input type="number" id="quantityInput" value="1">
+            </div>
+          </div>
+          <div class="d-flex gap-2 flex-wrap">
+            <button class="btn-nc" onclick="ncToast('Added to cart')">🛒 Add to Cart</button>
+            <a href="checkout.html" class="btn-nc-outline">Buy Now</a>
+            <button class="nc-icon-btn" onclick="ncToast('Added to wishlist')">♡</button>
+            <a href="compare.html" class="nc-icon-btn">⇌</a>
+          </div>
+          <div class="row g-2 mt-4">
+            <div class="col-6">
+              <div class="p-3 bg-surface-2 rounded-nc border-nc"><small class="text-muted-nc">Delivery</small>
+                <div>Free · 2-day</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="p-3 bg-surface-2 rounded-nc border-nc"><small class="text-muted-nc">Return</small>
+                <div id="return">30-day easy</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="d-flex align-items-center gap-3 mb-3">
-        <label class="nc-label mb-0">Quantity</label>
-        <div class="nc-qty"><button onclick="const i=this.nextElementSibling;i.value=Math.max(1,+i.value-1)">−</button><input value="1"><button onclick="const i=this.previousElementSibling;i.value=+i.value+1">+</button></div>
-      </div>
-      <div class="d-flex gap-2 flex-wrap">
-        <button class="btn-nc" onclick="ncToast('Added to cart')">🛒 Add to Cart</button>
-        <a href="checkout.html" class="btn-nc-outline">Buy Now</a>
-        <button class="nc-icon-btn" onclick="ncToast('Added to wishlist')">♡</button>
-        <a href="compare.html" class="nc-icon-btn">⇌</a>
-      </div>
-      <div class="row g-2 mt-4">
-        <div class="col-6"><div class="p-3 bg-surface-2 rounded-nc border-nc"><small class="text-muted-nc">Delivery</small><div>Free · 2-day</div></div></div>
-        <div class="col-6"><div class="p-3 bg-surface-2 rounded-nc border-nc"><small class="text-muted-nc">Return</small><div>30-day easy</div></div></div>
-      </div>
-    </div>
-  </div>
 
-  <div class="row mt-5 g-4">
-    <div class="col-lg-8">
-      <h4>Description</h4>
-      <p class="text-muted-nc">The Aurora headphones redefine premium wireless audio. With adaptive noise cancellation, 40mm dynamic drivers tuned by Grammy-winning engineers, and buttery-soft memory foam cushions, they're built for hours of comfort and cinematic sound.</p>
-      <h5 class="mt-4">Specifications</h5>
-      <table class="table table-dark table-borderless" style="background:var(--nc-surface)">
-        <tbody>
-          <tr><td class="text-muted-nc">Driver</td><td>40mm dynamic</td></tr>
-          <tr><td class="text-muted-nc">Battery</td><td>Up to 40 hours</td></tr>
-          <tr><td class="text-muted-nc">Bluetooth</td><td>5.3 LE + Multipoint</td></tr>
-          <tr><td class="text-muted-nc">Weight</td><td>245g</td></tr>
-          <tr><td class="text-muted-nc">Warranty</td><td>2 years</td></tr>
-        </tbody>
-      </table>
-      <h5 class="mt-4">Customer Reviews</h5>
-      <div class="nc-testi mb-3"><div class="stars">★★★★★</div><p>"Absolute best sound I've heard under $200. ANC is fantastic on flights."</p><div class="who"><div class="av">L</div><div><h6>Liam O.</h6><small>Verified purchase · 2 days ago</small></div></div></div>
-      <div class="nc-testi"><div class="stars">★★★★☆</div><p>"Great sound, tight fit — took a day to break in but now super comfy."</p><div class="who"><div class="av">S</div><div><h6>Sana P.</h6><small>Verified purchase · 1 week ago</small></div></div></div>
-    </div>
-    <div class="col-lg-4">
-      <div class="p-4 bg-surface rounded-nc border-nc">
-        <h6 class="text-uppercase text-muted-nc" style="font-size:12px;letter-spacing:1px">Rating Overview</h6>
-        <div style="font-size:42px;font-weight:800">4.8</div>
-        <div style="color:var(--nc-yellow)">★★★★★</div>
-        <div class="text-muted-nc" style="font-size:13px">Based on 1,204 reviews</div>
+      <div class="row mt-5 g-4">
+        <div class="col-lg-8">
+          <h4>Description</h4>
+          <p id="description" class="text-muted-nc"></p>
+          
+          <h5 class="mt-4">Customer Reviews</h5>
+          <div id="reviewContainer"></div>
+          
+        </div>
+        <div class="col-lg-4">
+          <div id="" class=" rating p-4 bg-surface rounded-nc border-nc"> </div>
+        </div>
       </div>
-    </div>
-  </div>
 
-  <div class="nc-section-head mt-5"><h2>Similar Products</h2></div>
-  <div class="row g-3" id="pgrid"></div>
-</div></section>
-<script>document.addEventListener('DOMContentLoaded',()=>{const c=document.getElementById('pgrid');if(c)c.innerHTML=NovaCart.products.slice(0,4).map(p=>`<div class="col-6 col-md-4 col-lg-3">${productCard(p)}</div>`).join('');});</script>
-<div id="nc-footer"></div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="js/app.js"></script>
+      <div class="nc-section-head mt-5">
+        <h2>Similar Products</h2>
+      </div>
+      <div class="row g-3" id="pgrid"></div>
+    </div>
+  </section>
+  
+  <div id="nc-footer"></div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/productdetails.js"></script>
 </body>
+
 </html>
