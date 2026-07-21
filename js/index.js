@@ -3,23 +3,18 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.log(NovaCart.selectedCategory);
     document.getElementById("catGrid").innerHTML =
         NovaCart.categories.map(c => `
-        <div class="col-12 col-md-4 col-lg-3">
+          <div class="col-6 col-md-4 col-lg-3">
             <a href="products.html" class="text-decoration-none text-dark"
-              onclick="NovaCart.setSelectedCategory('${c.name}')"
-            >
-                <div class="nc-cat card-hover pb-2">
-
-                    <div
-                        class="nc-cat-img d-flex justify-content-center align-items-center"
-                        style="background-image: url('${c.img}'); background-size: cover; background-position: center center">
-                    </div>
-
-                    <h5 class="mt-3 mb-1">${c.name}</h5>
-                    <p class="mb-0 text-muted">${c.count} Products</p>
+               onclick="NovaCart.setSelectedCategory('${c.name}')">
+              <div class="nc-cat card-hover pb-2">
+                <div class="nc-cat-img">
+                  <img src="${c.img}" alt="${c.name}" loading="lazy">
                 </div>
+                <h5 class="mt-3 mb-1">${c.name}</h5>
+                <p class="mb-0 text-muted">${c.count} Products</p>
+              </div>
             </a>
-        </div>
-      `).join("");
+          </div>`).join("");
 
     document.getElementById("brandGrid").innerHTML =
         NovaCart.brands.slice(0, 10).map(b => `

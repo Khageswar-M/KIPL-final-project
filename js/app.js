@@ -81,32 +81,42 @@
     return p;
   }
 
+  window.handleLogout= function() {
+
+    const isConfirm = window.confirm("Are you sure you want to logout?");
+
+    if (!isConfirm) return;
+
+    localStorage.setItem("login", JSON.stringify(false));
+
+    window.location.replace("login.html");
+  }
+
   function renderNavbar(target) {
     const active = currentPage();
     const links = NAV_LINKS.map(l => `<li class="nav-item"><a class="nav-link ${active === l.href ? 'active' : ''}" href="${l.href}">${l.label}</a></li>`).join("");
     target.innerHTML = `
-      <div class="nc-announce">Free shipping on orders over $75 &nbsp;·&nbsp; Use code <b>NOVA20</b> for 20% off &nbsp;·&nbsp; <a href="products.html">Shop deals</a></div>
+      <div class="nc-announce">Free shipping on orders over ₹99 &nbsp;·&nbsp; Use code <b>NOVA20</b> for 20% off &nbsp;·&nbsp; <a href="products.html">Shop deals</a></div>
       <nav class="nc-nav navbar navbar-expand-lg">
         <div class="container-nc w-100 d-flex flex-column flex-lg-row justify-content-between align-items-center gap-3">
           <div class="w-100 d-flex justify-content-between align-items-center">
-    <a href="index.html"
-       class="navbar-brand d-flex align-items-center justify-content-center m-0 py-0">
+            <a href="index.html" class="navbar-brand d-flex align-items-center m-0 p-0">
 
-        <img
-            src="../images/AppLogo.png"
-            alt="NovaCart Logo"
-            class="img-fluid"
-            style="max-height: 50px; width: auto; scale: 2">
-    </a>
+              <img
+                  src="../images/AppLogo.png"
+                  alt="NovaCart Logo"
+                  class="img-fluid"
+                  style="height: 48px; width: auto; object-fit: contain; scale: 3; margin-left: 20px; margin-top: 10px;">
+            </a>
 
-    <button
-        class="navbar-toggler border-0 shadow-none"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#ncNav">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-</div>
+              <button
+                  class="navbar-toggler border-0 shadow-none"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#ncNav">
+                  <span class="navbar-toggler-icon"></span>
+              </button>
+          </div>
           <div class="collapse navbar-collapse w-100 gap-3" id="ncNav"> 
             <ul class="navbar-nav me-auto gap-2">${links}</ul>
             <form class="nc-search d-flex" action="search.html">
@@ -114,14 +124,10 @@
               <button type="submit">Search</button>
             </form>
             <div class="d-flex align-items-center gap-2 ms-lg-3 mt-3 mt-lg-0">
-              <a href="wishlist.html" class="nc-icon-btn" title="Wishlist">
-                <i class="fa-regular fs-5 fa-heart"></i>
-                <span class="nc-badge">3</span>
-              </a>
-              <a href="compare.html" class="nc-icon-btn" title="Compare"><i class="fa-solid fa-code-compare"></i></a>
+              
               <a href="cart.html" class="nc-icon-btn" title="Cart"><i class="fa-solid fa-cart-shopping"></i><span class="nc-badge">${window.cart.items.length}</span></a>
               <a href="profile.html" class="nc-icon-btn" title="Account"><i class="fa-regular fa-user"></i></a>
-              <a href="login.html" class="btn-nc d-none d-lg-inline-flex" style="padding:8px 18px;font-size:13px">Login</a>
+              <a onclick="handleLogout()" class="btn btn-danger  d-none d-lg-inline-flex" style="padding:8px 18px;font-size:13px">Logout</a>
             </div>
           </div>
         </div>
@@ -129,34 +135,57 @@
     `;
   }
 
+
+
+
+
   function renderFooter(target) {
     target.innerHTML = `
       <footer class="nc-footer">
         <div class="container-nc">
           <div class="row g-4">
-            <div class="col-lg-4 col-md-6">
+            <div class="col-lg-4 col-md-12">
               <a class="navbar-brand " href="home.html" style="text-align: center">
                 <img src="../images/AppLogo.png" style="scale: 5; align-self: center;" height="50"  width:"100"/>
               </a>
-              <p class="brand-desc">The next generation shopping experience. Discover premium electronics, gadgets, fashion and more — delivered fast, guaranteed genuine.</p>
-              <div class="socials mt-3">
-    <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
-    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-    <a href="#"><i class="fa-brands fa-instagram"></i></a>
-    <a href="#"><i class="fa-brands fa-youtube"></i></a>
-</div>
+              <p class="brand-desc " style="text-align:">The next generation shopping experience. Discover premium electronics, gadgets, fashion and more — delivered fast, guaranteed genuine.</p>
+              <div class="socials mt-3 text-center">
+                <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-youtube"></i></a>
+              </div>
             </div>
-            <div class="col-lg-2 col-md-6 col-6"><h6>Shop</h6>
-              <a href="products.html">All Products</a><a href="categories.html">Categories</a><a href="products.html">New Arrivals</a><a href="products.html">Best Sellers</a><a href="products.html">Deals</a>
+            <div class="col-lg-2 col-md-6 col-6 text-center">
+              <h6>Shop</h6>
+              <a href="products.html">All Products</a>
+              <a href="categories.html">Categories</a>
+              <a href="products.html">New Arrivals</a>
+              <a href="products.html">Best Sellers</a>
+              <a href="products.html">Deals</a>
             </div>
-            <div class="col-lg-2 col-md-6 col-6"><h6>Account</h6>
-              <a href="profile.html">My Profile</a><a href="orders.html">Orders</a><a href="wishlist.html">Wishlist</a><a href="address.html">Addresses</a><a href="notifications.html">Notifications</a>
+            <div class="col-lg-2 col-md-6 col-6 text-center">
+              <h6>Account</h6>
+              <a href="profile.html">My Profile</a>
+              <a href="orders.html">Orders</a>
+              <a href="address.html">Addresses</a>
+              <a href="notifications.html">Notifications</a>
             </div>
-            <div class="col-lg-2 col-md-6 col-6"><h6>Help</h6>
-              <a href="support.html">Support</a><a href="faq.html">FAQ</a><a href="contact.html">Contact</a><a href="about.html">About</a><a href="#">Shipping</a>
+            <div class="col-lg-2 col-md-6 col-6 text-center">
+              <h6>Help</h6>
+              <a href="support.html">Support</a>
+              <a href="faq.html">FAQ</a>
+              <a href="contact.html">Contact</a>
+              <a href="about.html">About</a>
+              <a href="#">Shipping</a>
             </div>
-            <div class="col-lg-2 col-md-6 col-6"><h6>Legal</h6>
-              <a href="#">Terms</a><a href="#">Privacy</a><a href="#">Cookies</a><a href="#">Returns</a><a href="#">Warranty</a>
+            <div class="col-lg-2 col-md-6 col-6 text-center">
+              <h6>Legal</h6>
+              <a href="about.html">Terms</a>
+              <a href="about.html">Privacy</a>
+              <a href="about.html">Cookies</a>
+              <a href="about.html">Returns</a>
+              <a href="about.html">Warranty</a>
             </div>
           </div>
           <div class="nc-footer-bottom">
@@ -187,7 +216,7 @@
     </div>`;
   };
 
-  
+
 
   // Cart
   window.cart = JSON.parse(localStorage.getItem("cart")) || {
@@ -220,7 +249,7 @@
 
     // Remove the product
     window.cart.items = window.cart.items.filter(item => item.id !== productId);
-    console.log("after click remove: ",window.cart.items);
+    console.log("after click remove: ", window.cart.items);
 
     // Update total quantity
     window.cart.total = window.cart.items.reduce(

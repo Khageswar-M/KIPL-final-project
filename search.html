@@ -7,6 +7,7 @@
   <title>Search · NovaCart</title>
   <meta name="description"
     content="NovaCart — the next-generation ecommerce experience for gadgets, fashion and lifestyle.">
+    <link rel="shortcut icon" href="./images/NovaCartFevIcon.png" type="image/x-icon">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link
     href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
@@ -14,6 +15,38 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
 
+  <style>
+    /* Skeleton loading state — scoped to this page only */
+    @keyframes nc-shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+
+    .nc-skel {
+      background: linear-gradient(90deg, #eef1f6 25%, #f6f8fb 37%, #eef1f6 63%);
+      background-size: 200% 100%;
+      animation: nc-shimmer 1.4s ease-in-out infinite;
+      border-radius: 8px;
+    }
+
+    .nc-skel-card {
+      border: 1px solid var(--nc-border, #e5e9f0);
+      border-radius: 16px;
+      padding: 12px;
+      height: 100%;
+    }
+
+    .nc-skel-img {
+      height: 140px;
+      width: 100%;
+      margin-bottom: 12px;
+    }
+
+    .nc-skel-line {
+      height: 14px;
+      margin-bottom: 8px;
+    }
+  </style>
 </head>
 
 <body>
@@ -21,60 +54,114 @@
 
   <section class="py-5">
     <div class="container-nc">
-      <form class="nc-search reveal" style="max-width:720px;margin:0 auto"><input
-          placeholder="Search products, brands..." value="wireless headphones"><button>Search</button></form>
+      <form class="nc-search reveal" id="searchForm" action="search.html" method="GET" style="max-width:720px;margin:0 auto">
+        <input name="q" id="searchInput" placeholder="Search products, brands...">
+        <button type="submit">Search</button>
+      </form>
       <div class="row g-4 mt-4">
         <div class="col-lg-3">
           <div class="nc-filter reveal">
             <h6>Recent Searches</h6>
-            <div class="d-flex flex-wrap gap-2 mb-3">
-              <span class="btn-nc-ghost" style="padding:5px 10px;font-size:12px">Headphones</span>
-              <span class="btn-nc-ghost" style="padding:5px 10px;font-size:12px">Watch</span>
-              <span class="btn-nc-ghost" style="padding:5px 10px;font-size:12px">Keyboard</span>
+            <div class="d-flex flex-wrap gap-2 mb-3" id="recentSearches">
+              <a href="search.html?q=Headphones" class="btn-nc-ghost" style="padding:5px 10px;font-size:12px">Headphones</a>
+              <a href="search.html?q=Watch" class="btn-nc-ghost" style="padding:5px 10px;font-size:12px">Watch</a>
+              <a href="search.html?q=Keyboard" class="btn-nc-ghost" style="padding:5px 10px;font-size:12px">Keyboard</a>
             </div>
             <h6>Trending</h6>
-            <div class="d-flex flex-wrap gap-2">
-              <span class="btn-nc-ghost" style="padding:5px 10px;font-size:12px">🔥 4K Cam</span>
-              <span class="btn-nc-ghost" style="padding:5px 10px;font-size:12px">🔥 VR</span>
-              <span class="btn-nc-ghost" style="padding:5px 10px;font-size:12px">🔥 Console</span>
+            <div class="d-flex flex-wrap gap-2" id="trendingSearches">
+              <a href="search.html?q=Camera" class="btn-nc-ghost" style="padding:5px 10px;font-size:12px">🔥 4K Cam</a>
+              <a href="search.html?q=VR" class="btn-nc-ghost" style="padding:5px 10px;font-size:12px">🔥 VR</a>
+              <a href="search.html?q=Console" class="btn-nc-ghost" style="padding:5px 10px;font-size:12px">🔥 Console</a>
             </div>
           </div>
         </div>
         <div class="col-lg-9 reveal">
-          <div class="text-muted-nc mb-3" style="font-size:14px">About <b class="">248</b> results for "<b
-              class="">wireless headphones</b>"</div>
+          <div class="text-muted-nc mb-3" style="font-size:14px" id="resultsSummary"></div>
           <div class="row g-3" id="pgrid"></div>
         </div>
       </div>
     </div>
   </section>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => { 
-      const c = document.getElementById('pgrid'); 
-      if (c) c.innerHTML = NovaCart.products.map(p => 
-        `<div class="col-6 col-md-4 col-lg-3">
-          ${productCard(p)}
-        </div>`
-      ).join(''); 
-
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("active");
-          }
-        });
-      }, {
-        threshold: 0.15
-      });
-
-      document.querySelectorAll(".reveal").forEach(el => {
-        observer.observe(el);
-      });
-    });
-  </script>
   <div id="nc-footer"></div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="js/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const pgrid = document.getElementById('pgrid');
+      const resultsSummary = document.getElementById('resultsSummary');
+      const searchInput = document.getElementById('searchInput');
+
+      const params = new URLSearchParams(window.location.search);
+      const query = (params.get('q') || '').trim();
+
+      searchInput.value = query;
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add('active');
+        });
+      }, { threshold: 0.15 });
+
+      const observeReveals = (root = document) => {
+        root.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+      };
+
+      // ---- Skeleton state (shown immediately, before data is ready) ----
+      const skeletonCardMarkup = () => `
+        <div class="col-6 col-md-4 col-lg-3">
+          <div class="nc-skel-card">
+            <div class="nc-skel nc-skel-img"></div>
+            <div class="nc-skel nc-skel-line" style="width:85%"></div>
+            <div class="nc-skel nc-skel-line" style="width:50%"></div>
+          </div>
+        </div>`;
+
+      if (pgrid) pgrid.innerHTML = Array.from({ length: 8 }).map(skeletonCardMarkup).join('');
+
+      function matchesQuery(p, q) {
+        if (!q) return true;
+        const haystack = `${p.title || ''} ${p.brand || ''} ${p.cat || ''}`.toLowerCase();
+        return haystack.includes(q.toLowerCase());
+      }
+
+      function renderResults() {
+        const products = window.NovaCart.products || [];
+        const results = products.filter(p => matchesQuery(p, query));
+
+        resultsSummary.innerHTML = query
+          ? `About <b>${results.length}</b> results for "<b>${query}</b>"`
+          : `Showing <b>${results.length}</b> products`;
+
+        if (!pgrid) return;
+
+        if (!results.length) {
+          pgrid.innerHTML = `<div class="col-12"><p class="text-muted-nc">No products matched "${query}". Try a different search term.</p></div>`;
+          return;
+        }
+
+        pgrid.innerHTML = results.map(p => `
+          <div class="col-6 col-md-4 col-lg-3 reveal">
+            ${productCard(p)}
+          </div>`).join('');
+
+        observeReveals(pgrid);
+      }
+
+      if (window.NovaCart && NovaCart.ready) {
+        NovaCart.ready
+          .then(renderResults)
+          .catch(() => {
+            resultsSummary.textContent = "Couldn't load products.";
+            if (pgrid) pgrid.innerHTML = `<div class="col-12"><p class="text-muted-nc">Couldn't load products. Please refresh.</p></div>`;
+          });
+      } else {
+        resultsSummary.textContent = "Couldn't load products.";
+        if (pgrid) pgrid.innerHTML = `<div class="col-12"><p class="text-muted-nc">Couldn't load products. Please refresh.</p></div>`;
+      }
+
+      observeReveals();
+    });
+  </script>
 </body>
 
 </html>

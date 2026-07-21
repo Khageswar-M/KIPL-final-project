@@ -7,6 +7,7 @@
   <title>Categories · NovaCart</title>
   <meta name="description"
     content="NovaCart — the next-generation ecommerce experience for gadgets, fashion and lifestyle.">
+    <link rel="shortcut icon" href="./images/NovaCartFevIcon.png" type="image/x-icon">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link
     href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
@@ -14,6 +15,63 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
 
+  <style>
+    /* Skeleton loading state — scoped to this page only */
+    @keyframes nc-shimmer {
+      0% {
+        background-position: -200% 0;
+      }
+
+      100% {
+        background-position: 200% 0;
+      }
+    }
+
+    .nc-skel {
+      background: linear-gradient(90deg, #eef1f6 25%, #f6f8fb 37%, #eef1f6 63%);
+      background-size: 200% 100%;
+      animation: nc-shimmer 1.4s ease-in-out infinite;
+      border-radius: 8px;
+    }
+
+    .nc-skel-title {
+      height: 26px;
+      width: 220px;
+      margin-bottom: 18px;
+    }
+
+    .nc-skel-card {
+      border: 1px solid var(--nc-border, #e5e9f0);
+      border-radius: 16px;
+      padding: 12px;
+      height: 100%;
+    }
+
+    .nc-skel-img {
+      height: 140px;
+      width: 100%;
+      margin-bottom: 12px;
+    }
+
+    .nc-skel-line {
+      height: 14px;
+      margin-bottom: 8px;
+    }
+
+    .nc-skel-tile {
+      border: 1px solid var(--nc-border, #e5e9f0);
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .nc-skel-thumb {
+      height: 64px;
+      width: 64px;
+      border-radius: 12px;
+      margin: 0 auto 12px;
+    }
+  </style>
 </head>
 
 <body>
@@ -35,56 +93,18 @@
           <p class="text-muted-nc">Browse curated collections across every lifestyle need.</p>
         </div>
       </div>
+
       <div class="row g-3 mt-4" id="catGrid"></div>
 
-      <div class="nc-section-head mt-5">
-        <h2>Featured in Electronics</h2>
-      </div>
-      <div class="row g-3" id="pgrid"></div>
+      <div id="catSections" class="mt-5"></div>
     </div>
   </section>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      document.getElementById('catGrid').innerHTML = NovaCart.categories.map(c =>
-        `<div class="col-6 col-md-4 col-lg-3 reveal">
-        <a href="products.html">
-          <div class="nc-cat">
-            <div class="emoji">
-              ${c.emoji}
-            </div>
-            <h5>
-              ${c.name}
-            </h5>
-            <p>
-              ${c.count} products
-            </p>
-          </div>
-        </a>
-      </div>`).join('');
-      document.getElementById('pgrid').innerHTML = NovaCart.products.slice(0, 8).map(p =>
-        `<div class="col-6 col-md-4 col-lg-3 reveal">
-        ${productCard(p)}
-      </div>`).join('');
-
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("active");
-          }
-        });
-      }, {
-        threshold: 0.15
-      });
-
-      document.querySelectorAll(".reveal").forEach(el => {
-        observer.observe(el);
-      });
-    });
-  </script>
 
   <div id="nc-footer"></div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="js/app.js"></script>
+  <script src="js/categories.js"></script>
+
 </body>
 
 </html>

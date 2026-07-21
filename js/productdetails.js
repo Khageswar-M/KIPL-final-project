@@ -9,12 +9,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let product;
 
+    const params = new URLSearchParams(window.location.search);
+    const productId = Number(params.get("id"));
+
+    const addToCartBtn = document.getElementById("addToCartBtn");
+    const buyNowBtn = document.getElementById("buyNowBtn");
+
+    addToCartBtn.addEventListener("click", () => {
+        window.addToCart(productId);
+    });
+
+    buyNowBtn.addEventListener("click", () => {
+        window.addToCart(productId);
+        window.location.href = "cart.html"; // straight to checkout with this item already in the cart
+    });
+
 
     async function loadProduct() {
 
-        const params = new URLSearchParams(window.location.search);
 
-        const productId = params.get("id");
 
         if (!productId) {
             window.location.href = "products.html";
@@ -141,15 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
     }
 
-
-    // if (c) {
-    //     c.innerHTML = NovaCart.products.slice(0, 4).map(p =>
-    //         `<div class="col-6 col-md-4 col-lg-3">
-    //         ${productCard(p)}
-    //       </div>`).join('');
-    // }
-
-    async function renderSimilarProducts(category){
+    async function renderSimilarProducts(category) {
         console.log(category)
         try {
             await window.NovaCart.ready;
