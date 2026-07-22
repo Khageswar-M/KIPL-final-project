@@ -8,12 +8,40 @@
     { href: "contact.html", label: "Contact" }
   ];
 
+  // Pages reachable without being logged in — the whole login/signup/
+  // forgot-password/otp/reset toggle lives here, everything else is guarded.
+  const AUTH_PAGES = ["login.html", "signup.html", "verify-otp.html", "forgot-password.html", "reset-password.html"];
+
+  function currentPage() {
+    const p = location.pathname.split("/").pop() || "index.html";
+    return p;
+  }
+
+  function isLoggedIn() {
+    try {
+      return JSON.parse(localStorage.getItem("login")) === true;
+    } catch (e) {
+      return false;
+    }
+  }
+
   window.NovaCart = {
     products: [],
     categories: [],
     brands: [],
     selectedCategory: "All",
+    isLoggedIn: isLoggedIn
   };
+
+  // --- Auth guard: run immediately, before anything else on the page ---
+  const onAuthPage = AUTH_PAGES.includes(currentPage());
+  const loggedIn = isLoggedIn();
+  const needsRedirect = !onAuthPage && !loggedIn;
+
+  if (needsRedirect) {
+    location.replace("login.html");
+  }
+  // -----------------------------------------------------------------------
 
   async function loadFakeProducts() {
     try {
@@ -70,18 +98,14 @@
     }
   }
 
-  window.NovaCart.ready = loadFakeProducts();
+  // Skip the network call entirely if we're about to navigate away to login.
+  window.NovaCart.ready = needsRedirect ? Promise.resolve() : loadFakeProducts();
 
   window.NovaCart.setSelectedCategory = function (category) {
     sessionStorage.setItem("selectedCategory", category);
   }
 
-  function currentPage() {
-    const p = location.pathname.split("/").pop() || "index.html";
-    return p;
-  }
-
-  window.handleLogout= function() {
+  window.handleLogout = function () {
 
     const isConfirm = window.confirm("Are you sure you want to logout?");
 
@@ -119,24 +143,21 @@
           </div>
           <div class="collapse navbar-collapse w-100 gap-3" id="ncNav"> 
             <ul class="navbar-nav me-auto gap-2">${links}</ul>
-            <form class="nc-search d-flex" action="search.html">
-              <input name="q form-control" placeholder="Search..." />
-              <button type="submit">Search</button>
-            </form>
-            <div class="d-flex align-items-center gap-2 ms-lg-3 mt-3 mt-lg-0">
-              
-              <a href="cart.html" class="nc-icon-btn" title="Cart"><i class="fa-solid fa-cart-shopping"></i><span class="nc-badge">${window.cart.items.length}</span></a>
-              <a href="profile.html" class="nc-icon-btn" title="Account"><i class="fa-regular fa-user"></i></a>
-              <a onclick="handleLogout()" class="btn btn-danger  d-none d-lg-inline-flex" style="padding:8px 18px;font-size:13px">Logout</a>
+            <div class="d-flex align-items-center justify-content-between justify-content-lg-end gap-2 w-100 mt-3 mt-lg-0">
+              <form class="d-flex flex-shrink-0" action="search.html">
+                <button class="btn btn-primary d-flex align-items-center gap-2 rounded-pill" type="submit"><i class="fa-brands fa-sistrix"></i> Search</button>
+              </form>
+              <div class="d-flex align-items-center gap-2 flex-shrink-0">
+                <a href="cart.html" class="nc-icon-btn" title="Cart"><i class="fa-solid fa-cart-shopping"></i><span class="nc-badge">${window.cart.items.length}</span></a>
+                <a href="profile.html" class="nc-icon-btn" title="Account"><i class="fa-regular fa-user"></i></a>
+                <a onclick="handleLogout()" class="btn btn-danger d-inline-flex" style="padding:8px 18px;font-size:13px">Logout</a>
+              </div>
             </div>
           </div>
         </div>
       </nav>
     `;
   }
-
-
-
 
 
   function renderFooter(target) {
@@ -203,7 +224,6 @@
 
   window.productCard = function (p) {
     return `<div class="nc-card">
-      <button class="wish" aria-label="wishlist">♡</button>
       <span class="discount">-${p.discount}%</span>
       <div class="thumb" style="background: url(${p.img}); background-size: cover; background-position: center center;"></div>
       <div class="body">
@@ -290,6 +310,9 @@
 
 
   document.addEventListener("DOMContentLoaded", async () => {
+
+    if (needsRedirect) return; // navigating to login.html already, skip the rest
+
     await window.NovaCart.ready;
     const nav = document.getElementById("nc-navbar");
     const ft = document.getElementById("nc-footer");
