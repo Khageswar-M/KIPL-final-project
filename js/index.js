@@ -43,6 +43,16 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     ncCountdown("#flashTimer");
 
+    document.querySelectorAll(".carousel-img").forEach((img) => {
+        img.addEventListener("click", function () {
+            const category = this.dataset.category;
+
+            sessionStorage.setItem("selectedCategory", category);
+
+            window.location.href = "products.html";
+        });
+    });
+
     // Observe AFTER elements are created
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {

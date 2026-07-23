@@ -148,7 +148,10 @@
                 <button class="btn btn-primary d-flex align-items-center gap-2 rounded-pill" type="submit"><i class="fa-brands fa-sistrix"></i> Search</button>
               </form>
               <div class="d-flex align-items-center gap-2 flex-shrink-0">
-                <a href="cart.html" class="nc-icon-btn" title="Cart"><i class="fa-solid fa-cart-shopping"></i><span class="nc-badge">${window.cart.items.length}</span></a>
+                <a href="cart.html" class="nc-icon-btn" title="Cart">
+                  <i class="fa-solid fa-cart-shopping"></i>
+                  <span class="nc-badge">${window.cart.items.length}</span>
+                </a>
                 <a href="profile.html" class="nc-icon-btn" title="Account"><i class="fa-regular fa-user"></i></a>
                 <a onclick="handleLogout()" class="btn btn-danger d-inline-flex" style="padding:8px 18px;font-size:13px">Logout</a>
               </div>
@@ -166,15 +169,15 @@
         <div class="container-nc">
           <div class="row g-4">
             <div class="col-lg-4 col-md-12">
-              <a class="navbar-brand " href="home.html" style="text-align: center">
+              <a class="navbar-brand " href="index.html" style="text-align: center">
                 <img src="../images/AppLogo.png" style="scale: 5; align-self: center;" height="50"  width:"100"/>
               </a>
               <p class="brand-desc " style="text-align:">The next generation shopping experience. Discover premium electronics, gadgets, fashion and more — delivered fast, guaranteed genuine.</p>
               <div class="socials mt-3 text-center">
-                <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
-                <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-                <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                <a href="https://www.x.com" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="https://www.facebook.com" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://www.youtube.com" target="_blank"><i class="fa-brands fa-youtube"></i></a>
               </div>
             </div>
             <div class="col-lg-2 col-md-6 col-6 text-center">

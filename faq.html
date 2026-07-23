@@ -24,56 +24,69 @@
     <div class="container-nc text-center">
       <span class="nc-hero-eyebrow">Help Center</span>
       <h1>Frequently Asked <span class="gradient-text">Questions</span></h1>
-      <form class="nc-search mt-4 mx-auto" style="max-width:520px"><input
-          placeholder="Search questions..."><button>Search</button></form>
+      <form class="nc-search mt-4 mx-auto" style="max-width:520px" id="nc-faq-search">
+        <input type="text" id="nc-faq-search-input" placeholder="Search questions..." autocomplete="off">
+        <button type="submit">Search</button>
+      </form>
     </div>
   </section>
 
   <section class="pb-5">
     <div class="container-nc">
-      <div class="nc-tabs mb-4 mx-auto" style="justify-content:center"><a
-          class="active">All</a><a>Orders</a><a>Payments</a><a>Shipping</a><a>Returns</a><a>Account</a></div>
+      <div class="nc-tabs mb-4 mx-auto" id="nc-faq-tabs" style="justify-content:center">
+        <a href="#" class="active" data-category="All">All</a>
+        <a href="#" data-category="Orders">Orders</a>
+        <a href="#" data-category="Payments">Payments</a>
+        <a href="#" data-category="Shipping">Shipping</a>
+        <a href="#" data-category="Returns">Returns</a>
+        <a href="#" data-category="Account">Account</a>
+      </div>
       <div class="row justify-content-center">
-        <div class="col-lg-9">
-          <details class="nc-faq" open>
+        <div class="col-lg-9" id="nc-faq-list">
+          <details class="nc-faq" data-category="Orders" open>
             <summary>How do I track my order?</summary>
             <div class="ans">Head to <b>My Orders</b> in your account. Every active order shows a live tracking button
               that opens a real-time map.</div>
           </details>
-          <details class="nc-faq">
+          <details class="nc-faq" data-category="Payments">
             <summary>What payment methods do you accept?</summary>
             <div class="ans">We accept Visa, Mastercard, Amex, UPI, PayPal, Apple Pay, Google Pay, all major wallets,
               net banking, and cash on delivery.</div>
           </details>
-          <details class="nc-faq">
+          <details class="nc-faq" data-category="Returns">
             <summary>What is your return policy?</summary>
             <div class="ans">30 days, no questions asked. Just open the order and hit "Return". We arrange pickup at no
               cost.</div>
           </details>
-          <details class="nc-faq">
+          <details class="nc-faq" data-category="Shipping">
             <summary>How long does shipping take?</summary>
             <div class="ans">2–4 business days on standard shipping, next-day with Express, same-day in select metros.
             </div>
           </details>
-          <details class="nc-faq">
+          <details class="nc-faq" data-category="Payments">
             <summary>Is my payment information secure?</summary>
             <div class="ans">Yes. We use 256-bit SSL encryption and are PCI-DSS Level 1 certified. We never store your
               CVV.</div>
           </details>
-          <details class="nc-faq">
+          <details class="nc-faq" data-category="Orders">
             <summary>Can I cancel my order?</summary>
             <div class="ans">Orders can be cancelled for free until they enter the "Shipped" state. Go to Orders →
               Cancel.</div>
           </details>
-          <details class="nc-faq">
+          <details class="nc-faq" data-category="Shipping">
             <summary>Do you ship internationally?</summary>
             <div class="ans">Yes, to 40+ countries. Duties and taxes shown at checkout — no surprises.</div>
           </details>
-          <details class="nc-faq">
+          <details class="nc-faq" data-category="Account">
             <summary>How do I earn NovaCart rewards?</summary>
-            <div class="ans">Every $1 spent = 10 points. 1000 points = $10 off your next order. Tier bonuses at Silver,
+            <div class="ans">Every ₹1 spent = 10 points. 1000 points = ₹10 off your next order. Tier bonuses at Silver,
               Gold, and Platinum levels.</div>
           </details>
+
+          <div id="nc-faq-empty" class="text-center py-5" style="display:none">
+            <i class="fa-solid fa-magnifying-glass mb-3" style="font-size:2rem;opacity:.4"></i>
+            <p class="text-muted-nc mb-0">No questions match your search. Try a different keyword or category.</p>
+          </div>
         </div>
       </div>
 
@@ -89,6 +102,57 @@
   <div id="nc-footer"></div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="js/app.js"></script>
+  <script>
+    // Makes the FAQ page's search box and category tabs actually filter the list.
+    document.addEventListener('DOMContentLoaded', function () {
+      var tabs = document.querySelectorAll('#nc-faq-tabs a');
+      var faqs = document.querySelectorAll('.nc-faq');
+      var searchForm = document.getElementById('nc-faq-search');
+      var searchInput = document.getElementById('nc-faq-search-input');
+      var emptyState = document.getElementById('nc-faq-empty');
+
+      var activeCategory = 'All';
+      var searchTerm = '';
+
+      function applyFilters() {
+        var visibleCount = 0;
+
+        faqs.forEach(function (faq) {
+          var category = faq.getAttribute('data-category');
+          var text = faq.textContent.toLowerCase();
+          var matchesCategory = activeCategory === 'All' || category === activeCategory;
+          var matchesSearch = searchTerm === '' || text.indexOf(searchTerm) !== -1;
+          var show = matchesCategory && matchesSearch;
+
+          faq.style.display = show ? '' : 'none';
+          if (show) visibleCount++;
+        });
+
+        emptyState.style.display = visibleCount === 0 ? '' : 'none';
+      }
+
+      tabs.forEach(function (tab) {
+        tab.addEventListener('click', function (e) {
+          e.preventDefault();
+          tabs.forEach(function (t) { t.classList.remove('active'); });
+          tab.classList.add('active');
+          activeCategory = tab.getAttribute('data-category');
+          applyFilters();
+        });
+      });
+
+      searchForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        searchTerm = searchInput.value.trim().toLowerCase();
+        applyFilters();
+      });
+
+      searchInput.addEventListener('input', function () {
+        searchTerm = searchInput.value.trim().toLowerCase();
+        applyFilters();
+      });
+    });
+  </script>
 </body>
 
 </html>
