@@ -13,7 +13,8 @@
   const AUTH_PAGES = ["login.html", "signup.html", "verify-otp.html", "forgot-password.html", "reset-password.html"];
 
   function currentPage() {
-    const p = location.pathname.split("/").pop() || "index.html";
+    let p = location.pathname.split("/").pop() || "index.html";
+    if (p && !p.includes(".")) p += ".html"; // Netlify's Pretty URLs strips .html — add it back
     return p;
   }
 
