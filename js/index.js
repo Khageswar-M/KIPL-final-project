@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", async () => {
     await NovaCart.ready;
-    console.log(NovaCart.selectedCategory);
     document.getElementById("catGrid").innerHTML =
         NovaCart.categories.map(c => `
           <div class="col-6 col-md-4 col-lg-3">
@@ -26,7 +25,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       `).join("");
 
 
-    console.log("Length", NovaCart.products.length);
     document.getElementById("pgrid").innerHTML =
         NovaCart.products.slice(0, 25).map(p => `
         <div class="col-6 col-md-4 col-lg-3  ">

@@ -107,7 +107,6 @@ document.addEventListener('DOMContentLoaded', () => {
             })
 
 
-            console.log(product);
 
         } catch (err) {
             console.error(err);
@@ -140,7 +139,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updatePrice() {
         const quantityValue = Number(quantity.value);
-        console.log("Quantity: ", quantityValue);
 
         const currentPrice = product.price * 90 * quantityValue;
 
@@ -155,14 +153,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function renderSimilarProducts(category) {
-        console.log(category)
         try {
             await window.NovaCart.ready;
             const allProducts = window.NovaCart.products.filter(p => p.cat === category);
             similarProductContainer.innerHTML = allProducts.map(prd => `<div class="col-6 col-md-4 col-lg-3">
             ${productCard(prd)}
             </div>`).join('');
-            console.log("all products: ", allProducts);
         } catch (error) {
             console.error(error);
         }

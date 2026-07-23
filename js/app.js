@@ -92,8 +92,7 @@
 
       });
 
-      console.log("Loaded", transformedProducts.length, "products");
-      console.log(window.NovaCart);
+      
     } catch (err) {
       console.error(err);
     }
@@ -247,7 +246,6 @@
     items: [],
     total: 0
   };
-  console.log("In app js: ", window.cart.items.length);
 
   window.addToCart = function (productId) {
     const existing = window.cart.items.find(item => item.id === productId);
@@ -273,7 +271,6 @@
 
     // Remove the product
     window.cart.items = window.cart.items.filter(item => item.id !== productId);
-    console.log("after click remove: ", window.cart.items);
 
     // Update total quantity
     window.cart.total = window.cart.items.reduce(
