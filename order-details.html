@@ -1,69 +1,172 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Order details · NovaCart</title>
-<meta name="description" content="NovaCart — the next-generation ecommerce experience for gadgets, fashion and lifestyle.">
-<link rel="shortcut icon" href="./images/NovaCartFevIcon.png" type="image/x-icon">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Order details · NovaCart</title>
+  <meta name="description"
+    content="NovaCart — the next-generation ecommerce experience for gadgets, fashion and lifestyle.">
+  <link rel="shortcut icon" href="./images/NovaCartFevIcon.png" type="image/x-icon">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-<link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css">
 
 </head>
+
 <body>
-<div id="nc-navbar"></div>
+  <div id="nc-navbar"></div>
 
-<div class="container-nc nc-crumb"><a href="orders.html">Orders</a><span class="sep">/</span>#NVC-2025-83421</div>
-<section class="pb-5"><div class="container-nc"><div class="row g-4">
-  <div class="col-lg-8">
-    <div class="p-4 bg-surface rounded-nc border-nc mb-3">
-      <div class="d-flex justify-content-between flex-wrap gap-2">
-        <div><small class="text-muted-nc">Order ID</small><h5>#NVC-2025-83421</h5></div>
-        <span class="nc-order" style="margin:0"><span class="status">Delivered on Nov 15</span></span>
+  <div class="container-nc nc-crumb ps-4"><a href="orders.html">Orders</a><span class="sep">/</span><span
+      id="crumbOrderId">Order</span></div>
+  <section class="pb-5">
+    <div class="container-nc">
+      <div class="row g-4">
+        <div class="col-lg-8">
+          <div class="p-4 bg-surface rounded-nc border-nc mb-3">
+            <div class="d-flex justify-content-between flex-wrap gap-2">
+              <div><small class="text-muted-nc">Order ID</small>
+                <h5 id="orderId">—</h5>
+              </div>
+              <span class="nc-order" style="margin:0"><span class="status" id="orderStatus">Placed</span></span>
+            </div>
+            <ul class="nc-timeline mt-4" id="orderTimeline">
+              <li class="done">
+                <h6>Order Placed</h6><small id="placedAt">—</small>
+              </li>
+              <li>
+                <h6>Payment Confirmed</h6><small>Pending</small>
+              </li>
+              <li>
+                <h6>Shipped from warehouse</h6><small>Pending</small>
+              </li>
+              <li>
+                <h6>Out for delivery</h6><small>Pending</small>
+              </li>
+              <li>
+                <h6>Delivered</h6><small>Pending</small>
+              </li>
+            </ul>
+          </div>
+          <div class="p-4 bg-surface rounded-nc border-nc">
+            <h5 id="itemsHeading">Items</h5>
+            <div id="items"></div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="nc-summary">
+            <h5>Shipping</h5>
+            <p class="text-muted-nc mb-0" id="shippingAddress">—</p>
+            <hr class="my-3" style="border-color:var(--nc-border)">
+            <h6>Payment</h6>
+            <p class="text-muted-nc mb-0" id="paymentDetail">—</p>
+            <hr class="my-3" style="border-color:var(--nc-border)">
+            <h6>Order Total</h6>
+            <p class="text-muted-nc mb-0" id="orderTotal">—</p>
+            <div class="d-grid gap-2 mt-3">
+              <button class="btn-nc-outline" onclick="ncToast('Invoice downloaded')">⬇ Invoice</button>
+              <button class="btn-nc-ghost" onclick="ncToast('Return started')">↩ Return Item</button>
+              <a href="products.html" class="btn-nc justify-content-center">Reorder</a>
+            </div>
+          </div>
+        </div>
       </div>
-      <ul class="nc-timeline mt-4">
-        <li class="done"><h6>Order Placed</h6><small>Nov 12, 2025 · 09:12 AM</small></li>
-        <li class="done"><h6>Payment Confirmed</h6><small>Nov 12, 2025 · 09:13 AM</small></li>
-        <li class="done"><h6>Shipped from warehouse</h6><small>Nov 13, 2025 · 04:20 PM</small></li>
-        <li class="done"><h6>Out for delivery</h6><small>Nov 15, 2025 · 08:00 AM</small></li>
-        <li class="done"><h6>Delivered</h6><small>Nov 15, 2025 · 02:14 PM</small></li>
-      </ul>
     </div>
-    <div class="p-4 bg-surface rounded-nc border-nc">
-      <h5>Items (3)</h5>
-      <div id="items"></div>
-    </div>
-  </div>
-  <div class="col-lg-4">
-    <div class="nc-summary">
-      <h5>Shipping</h5>
-      <p class="text-muted-nc mb-0">Jane Doe<br>221B Baker St, Apt 4<br>San Francisco, CA 94103<br>+1 555 123 456</p>
-      <hr class="my-3" style="border-color:var(--nc-border)">
-      <h6>Payment</h6>
-      <p class="text-muted-nc mb-0">Visa •••• 4242</p>
-      <hr class="my-3" style="border-color:var(--nc-border)">
-      <h6>Delivery Partner</h6>
-      <p class="text-muted-nc mb-0">NovaExpress · #NVX7712</p>
-      <div class="d-grid gap-2 mt-3">
-        <button class="btn-nc-outline" onclick="ncToast('Invoice downloaded')">⬇ Invoice</button>
-        <button class="btn-nc-ghost" onclick="ncToast('Return started')">↩ Return Item</button>
-        <a href="products.html" class="btn-nc justify-content-center">Reorder</a>
-      </div>
-    </div>
-  </div>
-</div></div></section>
-<script>document.addEventListener('DOMContentLoaded',()=>{
-  document.getElementById('items').innerHTML = NovaCart.products.slice(0,3).map(p=>`
-    <div class="d-flex gap-3 align-items-center py-3 border-bottom" style="border-color:var(--nc-border)!important">
-      <div style="width:60px;height:60px;background:var(--nc-surface-2);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:28px">${p.emoji}</div>
-      <div class="flex-grow-1"><div style="font-weight:600">${p.title}</div><small class="text-muted-nc">Qty: 1 · ${p.price}</small></div>
-    </div>`).join('');
-});</script>
+  </section>
+  <script>document.addEventListener('DOMContentLoaded', () => {
 
-<div id="nc-footer"></div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="js/app.js"></script>
+      const params = new URLSearchParams(location.search);
+      const requestedId = params.get('id');
+
+      const orders = JSON.parse(localStorage.getItem('novacart_orders') || '[]');
+      const order = requestedId
+        ? orders.find(o => o.id === requestedId)
+        : orders[0]; // most recent order if no id was given
+
+      if (!order) {
+        document.querySelector('.container-nc.pb-5, section.pb-5 .container-nc').innerHTML =
+          '<p class="text-muted-nc">Order not found. <a href="orders.html">Back to orders</a></p>';
+        return;
+      }
+
+      document.getElementById('crumbOrderId').textContent = '#' + order.id;
+      document.getElementById('orderId').textContent = '#' + order.id;
+      document.getElementById('orderStatus').textContent = order.status || 'Placed';
+
+      const placedDate = new Date(order.placedAt);
+      document.getElementById('placedAt').textContent = isNaN(placedDate.getTime())
+        ? '—'
+        : placedDate.toLocaleString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+
+      document.getElementById('itemsHeading').textContent = 'Items (' + order.items.length + ')';
+
+      window.NovaCart.ready.then(() => {
+
+        const products = window.NovaCart.products;
+
+        const orderItems = order.items.map(item => {
+
+          const product = products.find(p => p.id === item.id);
+
+          return {
+            ...item,
+            title: product?.title || "Unknown Product",
+            img: product?.thumbnail || product?.img || "",
+            price: product?.price || item.price
+          };
+
+        });
+
+        document.getElementById("items").innerHTML = orderItems.map(p => `
+    <div class="d-flex gap-3 align-items-center py-3 border-bottom"
+         style="border-color:var(--nc-border)!important">
+
+      <div style="width:60px;height:60px;
+                  background:var(--nc-surface-2);
+                  border-radius:10px;
+                  overflow:hidden">
+
+        <img src="${p.img}"
+             alt="${p.title}"
+             style="width:100%;height:100%;object-fit:cover">
+
+      </div>
+
+      <div class="flex-grow-1">
+
+        <div style="font-weight:600">
+          ${p.title}
+        </div>
+
+        <small class="text-muted-nc">
+          Qty: ${p.quantity} · ₹${Number(p.price).toFixed(2)}
+        </small>
+
+      </div>
+
+    </div>
+  `).join("");
+
+      });
+
+      const addr = order.address;
+      document.getElementById('shippingAddress').innerHTML = addr
+        ? `${addr.name}<br>${addr.street}<br>${addr.city}, ${addr.state} ${addr.zip}<br>${addr.phone}`
+        : 'No address on file';
+
+      document.getElementById('paymentDetail').textContent = order.payment ? order.payment.detail : '—';
+
+      document.getElementById('orderTotal').textContent = order.priceSummary
+        ? '₹' + Number(order.priceSummary.total).toFixed(2)
+        : '—';
+    });</script>
+
+  <div id="nc-footer"></div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/app.js"></script>
 </body>
+
 </html>

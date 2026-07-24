@@ -29,8 +29,9 @@
       <p class="sub">Sign in to continue shopping.</p>
       <form id="loginForm">
         <div class="mb-3">
-          <label class="nc-label">Email</label>
-          <input id="email" type="email" class="nc-input" placeholder="you@email.com" required>
+          <label class="nc-label">Mobile number</label>
+          <input id="phone" type="tel" class="nc-input" placeholder="Your phone number" maxlength="10"
+            oninput="this.value=this.value.replace(/\D/g,'').slice(0,10)" required>
         </div>
 
         <div class="mb-2">
@@ -46,7 +47,7 @@
         </div>
         <div class="d-flex justify-content-between align-items-center mb-3">
           <label class="nc-check"><input type="checkbox"> Remember me</label>
-          <a href="forgot-password.html" class="text-primary-nc" style="font-size:13px">Forgot password?</a>
+          <a href="reset-password.html" class="text-primary-nc" style="font-size:13px">Forgot password?</a>
         </div>
         <button class="btn-nc w-100 justify-content-center">Login</button>
         <p class="text-center mt-4 mb-0 text-muted-nc" style="font-size:14px">New here? <a href="signup.html"
@@ -59,7 +60,7 @@
     document.addEventListener("DOMContentLoaded", () => {
 
       const form = document.getElementById("loginForm");
-      const email = document.getElementById("email");
+      const phone = document.getElementById("phone");
       const password = document.getElementById("pw");
 
       form.addEventListener("submit", (e) => {
@@ -79,10 +80,10 @@
         }
 
         if (
-          email.value.trim().toLowerCase() !== user.email.toLowerCase() ||
+          phone.value.trim() !== user.phone ||
           password.value !== user.password
         ) {
-          ncToast("Invalid email or password.");
+          ncToast("Invalid mobile number or password.");
           return;
         }
 

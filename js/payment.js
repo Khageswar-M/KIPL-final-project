@@ -238,30 +238,103 @@ document.addEventListener("DOMContentLoaded", () => {
   // ---------- Payment submission ----------
   const payBtn = document.getElementById("payBtn");
 
+  const cart = JSON.parse(localStorage.getItem("cart")) || { items: [] };
+  const address =
+    (JSON.parse(localStorage.getItem("novacart_addresses")) || [])
+      .find(a => a.isDefault);
+
+  const summary =
+    JSON.parse(localStorage.getItem("novacart_price_summary")) || {};
+
+  const products = window.NovaCart.products;
+
+  // Build ordered products
+  const orderedItems = cart.items.map(item => {
+
+    const product = products.find(p => p.id === item.id);
+
+    return {
+      id: item.id,
+      title: product?.title || "Unknown Product",
+      img: product?.img || "",
+      quantity: item.quantity,
+      price: product?.price * 90 || 0
+    };
+
+  });
+
   payBtn.addEventListener("click", () => {
-    const activeTab = document.querySelector('.nc-tabs a.active')?.dataset.tab;
+
+    const activeTab =
+      document.querySelector(".nc-tabs a.active")?.dataset.tab;
+
+    // validate payment first...
 
     if (activeTab === "card") {
       if (!validateCard()) return;
-      window.location.href = "payment-success.html";
+    }
 
-    } else if (activeTab === "upi") {
-      const selected = getUpis().find(u => u.id === getSelectedUpiId());
+    if (activeTab === "upi") {
+
+      const selected =
+        getUpis().find(u => u.id === getSelectedUpiId());
 
       if (!selected) {
         alert("Please add and select a UPI ID first.");
         return;
       }
+
       if (!isValidUpi(selected.value)) {
-        alert("Selected UPI ID is invalid. Please edit or remove it.");
+        alert("Selected UPI ID is invalid.");
         return;
       }
-      window.location.href = "payment-success.html";
-
-    } else {
-      // Wallet / Net Banking / COD — nothing sensitive to validate here
-      window.location.href = "payment-success.html";
     }
+
+    // NOW create order
+
+    let paymentDetail = "";
+
+    if (activeTab === "card") {
+      paymentDetail = `Visa •••• ${getSavedCard()?.last4 || "----"}`;
+    } else if (activeTab === "upi") {
+      paymentDetail = getUpis().find(
+        u => u.id === getSelectedUpiId()
+      )?.value || "UPI";
+    } else if (activeTab === "wallet") {
+      paymentDetail = "Wallet";
+    } else if (activeTab === "net") {
+      paymentDetail = "Net Banking";
+    } else {
+      paymentDetail = "Cash on Delivery";
+    }
+
+    const order = {
+      id: crypto.randomUUID(),
+      placedAt: new Date().toISOString(),
+      status: "Placed",
+      items: orderedItems,
+      address,
+      priceSummary: summary,
+      payment: {
+        method: activeTab,
+        detail: paymentDetail,
+        holder: activeTab === "card" ? cardHolder.value.trim() : "-"
+      }
+    };
+
+    const orders =
+      JSON.parse(localStorage.getItem("novacart_orders")) || [];
+
+    orders.unshift(order);
+
+    localStorage.setItem(
+      "novacart_orders",
+      JSON.stringify(orders)
+    );
+
+    window.location.href =
+      `payment-success.html?method=${activeTab}&id=${order.id}`;
+
   });
 
 });

@@ -9,8 +9,13 @@
   ];
 
   // Pages reachable without being logged in — the whole login/signup/
-  // forgot-password/otp/reset toggle lives here, everything else is guarded.
-  const AUTH_PAGES = ["login.html", "signup.html", "verify-otp.html", "forgot-password.html", "reset-password.html"];
+  // forgot-password/reset toggle lives here, everything else is guarded.
+  const AUTH_PAGES = [
+    "login.html", 
+    "signup.html", 
+    // "forgot-password.html", 
+    "reset-password.html"
+  ];
 
   function currentPage() {
     let p = location.pathname.split("/").pop() || "index.html";
@@ -214,7 +219,7 @@
           </div>
           <div class="nc-footer-bottom">
             <div>© 2025 NovaCart. All rights reserved.</div>
-            <div>💳 Visa · Mastercard · UPI · PayPal · Apple Pay</div>
+            <div class="d-flex align-items-center">Design and developed by&nbsp;<a href="https://kavyainfoweb.com/" target="_blank">Kavya Infoweb Pvt. Ltd</a></div>
           </div>
         </div>
       </footer>
@@ -272,7 +277,7 @@
     // Remove the product
     window.cart.items = window.cart.items.filter(item => item.id !== productId);
 
-    // Update total quantity
+    // Update total quantity 
     window.cart.total = window.cart.items.reduce(
       (sum, item) => sum + item.quantity,
       0
@@ -327,17 +332,6 @@
         if (!inp) return;
         inp.type = inp.type === "password" ? "text" : "password";
         btn.textContent = inp.type === "password" ? "Show" : "Hide";
-      });
-    });
-
-    // OTP auto-advance
-    const otps = document.querySelectorAll(".nc-otp input");
-    otps.forEach((inp, i) => {
-      inp.addEventListener("input", e => {
-        if (e.target.value && i < otps.length - 1) otps[i + 1].focus();
-      });
-      inp.addEventListener("keydown", e => {
-        if (e.key === "Backspace" && !inp.value && i > 0) otps[i - 1].focus();
       });
     });
   });

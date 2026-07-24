@@ -66,10 +66,9 @@
             <form id="nc-edit-form" class="row g-3">
               <div class="col-md-6"><label class="nc-label">Full name</label><input id="nc-fullname" class="nc-input"
                   value="Jane Doe"></div>
-              <div class="col-md-6"><label class="nc-label">Email</label><input id="nc-email" type="email"
-                  class="nc-input" value="jane.doe@email.com"></div>
-              <div class="col-md-6"><label class="nc-label">Phone</label><input id="nc-phone" class="nc-input"
-                  value="+1 555 123 4567"></div>
+              <div class="col-md-6"><label class="nc-label">Phone</label><input id="nc-phone" type="tel"
+                  class="nc-input" maxlength="10" value="9876543210"
+                  oninput="this.value=this.value.replace(/\D/g,'').slice(0,10)"></div>
               <div class="col-md-3"><label class="nc-label">Gender</label><select id="nc-gender" class="nc-input">
                   <option>Female</option>
                   <option>Male</option>
@@ -95,8 +94,7 @@
 
       var fallback = {
         fullName: "Jane Doe",
-        email: "jane.doe@email.com",
-        phone: "+1 555 123 4567",
+        phone: "9876543210",
         gender: "Female",
         dob: "1995-06-14",
         profilePic: "",
@@ -145,7 +143,6 @@
 
       renderAvatar(data.profilePic, data.fullName);
       document.getElementById("nc-fullname").value = data.fullName;
-      document.getElementById("nc-email").value = data.email;
       document.getElementById("nc-phone").value = data.phone;
       document.getElementById("nc-gender").value = data.gender;
       document.getElementById("nc-dob").value = data.dob;
@@ -172,7 +169,6 @@
 
         var updated = Object.assign({}, stored, {
           fullName: document.getElementById("nc-fullname").value.trim(),
-          email: document.getElementById("nc-email").value.trim(),
           phone: document.getElementById("nc-phone").value.trim(),
           gender: document.getElementById("nc-gender").value,
           dob: document.getElementById("nc-dob").value,

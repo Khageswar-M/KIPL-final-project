@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         catGrid.innerHTML = categories.map(c => `
-          <div class="col-6 col-md-4 col-lg-3">
+          <div class="col-6 col-md-4 col-lg-3" onclick="NovaCart.setSelectedCategory('${c.name}')">
             <a href="products.html">
               <div class="nc-cat py-3">
                 <div class="thumb" style="width:64px;height:64px;margin:0 auto 12px;border-radius:12px;background:url(${c.img}) center/cover no-repeat"></div>

@@ -20,8 +20,8 @@
 <body>
   <div id="nc-navbar"></div>
 
-  <div class="container-nc nc-crumb"><a href="profile.html">Account</a><span class="sep">/</span>Orders</div>
-  <section class="pb-5">
+  <!-- <div class="container-nc nc-crumb"><a href="profile.html">Account</a><span class="sep">/</span>Orders</div> -->
+  <section class="pb-5 pt-5">
     <div class="container-nc">
       <div class="row g-4">
         <div class="col-lg-3">
@@ -62,11 +62,11 @@
           </div>
 
           <div class="nc-tabs mb-4 d-flex flex-nowrap overflow-auto" id="nc-tabs" style="-webkit-overflow-scrolling:touch">
-            <a href="#" class="active" data-filter="all">All (12)</a>
-            <a href="#" data-filter="pending">Pending (2)</a>
-            <a href="#" data-filter="shipped">Shipped (3)</a>
-            <a href="#" data-filter="delivered">Delivered (6)</a>
-            <a href="#" data-filter="cancelled">Cancelled (1)</a>
+            <a href="#" class="active" data-filter="all">All (<span data-count="all">12</span>)</a>
+            <a href="#" data-filter="pending">Pending (<span data-count="pending">2</span>)</a>
+            <a href="#" data-filter="shipped">Shipped (<span data-count="shipped">3</span>)</a>
+            <a href="#" data-filter="delivered">Delivered (<span data-count="delivered">6</span>)</a>
+            <a href="#" data-filter="cancelled">Cancelled (<span data-count="cancelled">1</span>)</a>
           </div>
 
           <div id="nc-orders-list">
@@ -123,14 +123,102 @@
   <script src="js/app.js"></script>
   <script>
     (function () {
+      var ordersList = document.getElementById('nc-orders-list');
+      var emptyState = document.getElementById('nc-orders-empty');
+
+      // ---- Render real orders saved in localStorage ('novacart_orders') ----
+      // Any order found here gets a "View Details" link to order-details.html?id=<id>,
+      // since real order data actually exists for it to display.
+      function statusMeta(rawStatus) {
+        var s = (rawStatus || '').toLowerCase();
+        if (s === 'delivered') return { filter: 'delivered', cls: '', label: 'Delivered' };
+        if (s === 'shipped') return { filter: 'shipped', cls: 'pending', label: 'Shipped' };
+        if (s === 'cancelled' || s === 'canceled') return { filter: 'cancelled', cls: 'cancel', label: 'Cancelled' };
+        // "Placed" and anything else in-progress reads as Pending
+        return { filter: 'pending', cls: 'pending', label: rawStatus || 'Pending' };
+      }
+
+      function orderTitle(order) {
+        var items = order.items || [];
+        if (!items.length) return 'Order';
+        var first = items[0].title || 'Item';
+        return items.length > 1 ? (first + ' + ' + (items.length - 1) + ' more') : first;
+      }
+
+      function formatDate(iso) {
+        var d = new Date(iso);
+        if (isNaN(d)) return '';
+        return d.toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' });
+      }
+
+      function formatRupees(amount) {
+        return '₹' + Number(amount || 0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      }
+
+      function renderRealOrders() {
+        var raw = localStorage.getItem('novacart_orders');
+        if (!raw) return;
+
+        var realOrders;
+        try {
+          realOrders = JSON.parse(raw);
+        } catch (e) {
+          return;
+        }
+        if (!Array.isArray(realOrders) || !realOrders.length) return;
+
+        // Newest first
+        realOrders.slice().reverse().forEach(function (order) {
+          var meta = statusMeta(order.status);
+          var title = orderTitle(order);
+          var total = order.priceSummary ? order.priceSummary.total : 0;
+          var shortId = (order.id || '').slice(0, 8).toUpperCase();
+
+          var card = document.createElement('div');
+          card.className = 'nc-order';
+          card.dataset.status = meta.filter;
+          card.dataset.title = title.toLowerCase();
+
+          card.innerHTML =
+            '<div class="head d-flex justify-content-between align-items-start flex-wrap gap-2">' +
+              '<div><small class="text-muted-nc">Order #NVC-' + shortId + ' · ' + formatDate(order.placedAt) + '</small>' +
+                '<h5 class="mt-1 mb-0"></h5>' +
+              '</div><span class="status ' + meta.cls + '"></span>' +
+            '</div>' +
+            '<div class="d-flex justify-content-between align-items-center mt-3 flex-wrap gap-2">' +
+              '<div class="text-muted-nc">Total: <b>' + formatRupees(total) + '</b></div>' +
+              '<div class="d-flex flex-wrap gap-2"><a class="btn-nc-ghost">View Details</a></div>' +
+            '</div>';
+
+          card.querySelector('h5').textContent = title;
+          card.querySelector('.status').textContent = meta.label;
+          var link = card.querySelector('a.btn-nc-ghost');
+          link.href = 'order-details.html?id=' + encodeURIComponent(order.id);
+
+          ordersList.insertBefore(card, emptyState);
+        });
+      }
+
+      renderRealOrders();
+
+      // ---- Tabs, search, filtering (operates on whatever orders are now in the DOM) ----
       var tabs = document.querySelectorAll('#nc-tabs a');
       var orders = document.querySelectorAll('#nc-orders-list .nc-order');
-      var emptyState = document.getElementById('nc-orders-empty');
       var searchForm = document.getElementById('nc-search-form');
       var searchInput = document.getElementById('nc-search-input');
-      var pagination = document.getElementById('nc-pagination');
 
       var currentFilter = 'all';
+
+      function updateTabCounts() {
+        var counts = { all: orders.length, pending: 0, shipped: 0, delivered: 0, cancelled: 0 };
+        orders.forEach(function (order) {
+          if (counts[order.dataset.status] !== undefined) counts[order.dataset.status]++;
+        });
+        Object.keys(counts).forEach(function (key) {
+          var el = document.querySelector('[data-count="' + key + '"]');
+          if (el) el.textContent = counts[key];
+        });
+      }
 
       function applyFilters() {
         var query = searchInput.value.trim().toLowerCase();
@@ -163,20 +251,8 @@
       });
       searchInput.addEventListener('input', applyFilters);
 
-      // Pagination is illustrative (this page only renders one page of results),
-      // so clicks just move the active state without breaking navigation.
-      pagination.addEventListener('click', function (e) {
-        var link = e.target.closest('a');
-        if (!link) return;
-        e.preventDefault();
-        if (link.dataset.page === 'prev' || link.dataset.page === 'next') return;
-        pagination.querySelectorAll('a[data-page]').forEach(function (a) {
-          if (a.dataset.page !== 'prev' && a.dataset.page !== 'next') {
-            a.classList.remove('active');
-          }
-        });
-        link.classList.add('active');
-      });
+      updateTabCounts();
+      applyFilters();
     })();
   </script>
 </body>
